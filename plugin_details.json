@@ -1243,7 +1243,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "Maizone（麦麦空间）",
-      "version": "2.4.11",
+      "version": "2.5.0",
       "description": "让你的麦麦发QQ空间，评论，点赞",
       "author": {
         "name": "internetsb",
@@ -1318,20 +1318,17 @@
         "插件"
       ],
       "categories": [
-        "Fun",
-        "Interaction",
-        "Automation"
+        "Entertainment & Interaction"
       ],
       "default_locale": "zh-CN",
-      "locales_path": "_locales",
       "plugin_info": {
         "is_built_in": false,
         "plugin_type": "chat",
         "components": [
           {
             "type": "action",
-            "name": "ActivePokeAction",
-            "description": "主动模式下，插件可以自动戳一戳群成员，增强群聊互动体验"
+            "name": "PokeAction",
+            "description": "在合适场景下对目标用户执行戳一戳互动"
           }
         ],
         "features": [
@@ -1728,8 +1725,8 @@
     "manifest": {
       "manifest_version": 1,
       "name": "沉默插件",
-      "version": "1.5.0",
-      "description": "使麦麦更人性化地保持沉默",
+      "version": "1.6.6",
+      "description": "使麦麦在需要的时候保持沉默（窥屏），支持一些个性化配置选项",
       "author": {
         "name": "A肆零西烛",
         "url": "https://github.com/A0000Xz"
@@ -1737,64 +1734,65 @@
       "license": "GPL-v3.0-or-later",
       "host_application": {
         "min_version": "0.9.1",
-        "max_version": "0.11.6"
+        "max_version": "0.12.2"
       },
       "keywords": [
-        "silence"
+        "Silence"
       ],
       "categories": [
         "Moderation"
       ],
       "repository_url": "https://github.com/A0000Xz/MaiBot-Silence-Plugin",
       "default_locale": "zh-CN",
-      "locales_path": "_locales"
+      "locales_path": "locales",
+      "id": "A0000Xz.MaiBot-Silence-Plugin"
     }
   },
   {
     "id": "whitefox20011120.bilibili_dynamic_push_plugin",
     "manifest": {
       "manifest_version": 1,
-      "name": "B站动态推送插件",
-      "version": "1.3.0",
-      "description": "定时检测B站UP主动态并推送到指定QQ群（跳过置顶、支持多UID/多群、启动日志提示）。",
+      "name": "B站动态推送",
+      "version": "1.5.0",
+      "description": "适用于MaiBot的B站动态订阅插件，支持多UP主、多群组推送，自动解析图文、视频封面及转发动态",
       "author": {
         "name": "白狐",
         "url": "https://github.com/whitefox20011120"
       },
-      "license": "AGPL-3.0",
+      "license": "MIT",
       "host_application": {
-        "min_version": "0.9.0"
+        "min_version": "0.10.0"
       },
       "homepage_url": "https://github.com/whitefox20011120/bilibili_dynamic_push_plugin",
       "repository_url": "",
-      "config_file_name": "config.toml",
       "keywords": [
         "bilibili",
-        "动态",
-        "自动推送",
-        "UP主",
-        "QQ"
+        "动态订阅",
+        "推送",
+        "监控",
+        "UP主"
       ],
       "categories": [
         "automation",
-        "bilibili",
-        "push",
-        "Utility Tools"
+        "entertainment",
+        "utility"
       ],
       "default_locale": "zh-CN",
       "plugin_info": {
         "is_built_in": false,
         "components": [
           {
-            "type": "action",
-            "name": "auto_push",
-            "description": "自动监控UP主动态并推送到QQ群"
+            "type": "command",
+            "name": "bili_control",
+            "description": "B站订阅插件"
           }
         ]
       },
       "python_dependencies": [
+        "bilibili-api-python>=16.2.0",
         "aiohttp"
-      ]
+      ],
+      "id": "MaiBotUser.bilibili_dynamic_subscription"
     }
   },
   {
@@ -1848,7 +1846,7 @@
         "name": "晴空",
         "url": "https://github.com/XXXxx7258"
       },
-      "license": "MIT",
+      "license": "AGPL",
       "host_application": {
         "min_version": "0.10.0"
       },
@@ -1895,7 +1893,7 @@
           "自动降级机制",
           "可配置的搜索引擎顺序",
           "重试机制",
-          "丰���的配置选项",
+          "丰富的配置选项",
           "中文缩写翻译功能",
           "神奇海螺API集成",
           "翻译结果缓存机制"
@@ -2524,7 +2522,7 @@
       "manifest_version": 1,
       "name": "repeat_plugin",
       "display_name": "复读插件",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "一个简单的复读插件(和上面的复读插件不一样，无需更改代码)，可以检测群聊中连续重复的消息并自动进行复读，为群聊增添乐趣。",
       "author": {
         "name": "何夕",
@@ -2533,8 +2531,7 @@
       },
       "license": "MIT",
       "host_application": {
-        "min_version": "0.10.1",
-        "max_version": "0.11.6 "
+        "min_version": "0.10.1"
       },
       "entry": "plugin.py",
       "homepage_url": "https://github.com/Heximiao/repeat_plugin",
@@ -2830,8 +2827,8 @@
     "manifest": {
       "manifest_version": 1,
       "name": "Gemini 绘图",
-      "version": "1.6.0",
-      "description": "使用 Google Gemini API或着其他第三方平台提供的绘图服务，根据图片和提示词生成新图片。",
+      "version": "1.7.8",
+      "description": "使用 Google Gemini API或着其他第三方平台提供的绘图服务，根据图片和提示词生成新图片。（现已支持视频生成）",
       "author": {
         "name": "sakura桜花",
         "url": "https://github.com/namchengwuqiu"
@@ -2843,12 +2840,10 @@
       "homepage_url": "https://github.com/namchengwuqiu/gemini_drawer",
       "repository_url": "https://github.com/namchengwuqiu/gemini_drawer",
       "keywords": [
-        "gemini",
-        "image",
-        "drawing",
-        "ai",
+        "ai画图",
         "绘图",
-        "画图"
+        "ai视频生成",
+        "image"
       ],
       "categories": [
         "Utilities",
@@ -2954,7 +2949,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "自定义命令插件 (CustomCommandsPlugin)",
-      "version": "1.6.0",
+      "version": "1.6.2",
       "description": "一个允许你通过聊天命令动态添加、删除、列出和触发自定义回复的强大插件",
       "author": {
         "name": "TaiYang",
@@ -3138,8 +3133,8 @@
     "id": "TAIY2020.group_muter_plugin",
     "manifest": {
       "manifest_version": 1,
-      "name": "群聊静音插件 (GroupMuterPlugin)",
-      "version": "1.4.0",
+      "name": "群聊麦麦静音插件 (GroupMuterPlugin)",
+      "version": "1.4.2",
       "description": "一个允许管理员通过聊天命令，让麦麦在指定群聊中临时进入“静音状态”的群组管理插件。",
       "author": {
         "name": "TaiYang",
@@ -4281,7 +4276,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "抽群老婆插件",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "可以在群聊中选择一位幸运群u做群老婆~",
       "author": {
         "name": "Hug_Yo",
@@ -4407,8 +4402,8 @@
     "manifest": {
       "manifest_version": 1,
       "name": "戳一戳插件",
-      "version": "1.0.3",
-      "description": "使麦麦能对被戳做出回应，同时给麦麦增加主动戳别人的能力",
+      "version": "1.2.2",
+      "description": "让麦麦能主动戳别人，也能在被戳时回戳并生成自然回复",
       "author": {
         "name": "鲨鱼",
         "url": "https://github.com/HyperSharkawa"
@@ -4625,7 +4620,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "Mai Forever Memories",
-      "version": "0.1.3",
+      "version": "0.2.3",
       "description": "将你与麦麦日常生活中的一点一滴保存为永恒的记忆，记录到LPMM中",
       "author": {
         "name": "ARC",
@@ -4683,6 +4678,8 @@
           "每日/每周摘要",
           "永远记忆触发",
           "导入 LPMM 知识库",
+          "只总结不导入模式",
+          "确认导入机制",
           "性能监控与管理员告警"
         ]
       },
@@ -5099,6 +5096,1690 @@
           "自动获取群聊列表并过滤",
           "打卡结果日志记录",
           "可通过config.toml配置打卡时间和服务器信息"
+        ]
+      }
+    }
+  },
+  {
+    "id": "AkariRin.jrlp",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "今日老婆",
+      "version": "1.1.5",
+      "description": "今天你的群老婆是谁呢",
+      "author": {
+        "name": "梦清",
+        "url": "https://github.com/AkariRin"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.12.1"
+      },
+      "homepage_url": "https://github.com/AkariRin/jrlp-plugin",
+      "repository_url": "https://github.com/AkariRin/jrlp-plugin",
+      "keywords": [
+        "今日老婆",
+        "群老婆",
+        "抽老婆"
+      ],
+      "categories": [
+        "Entertainment & Interaction"
+      ],
+      "id": "AkariRin.jrlp"
+    }
+  },
+  {
+    "id": "MaiBot-Discord-Adapter",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "Discord适配器",
+      "version": "1.0.0",
+      "description": "如题;注:使用该插件时建议重启,该插件有自动安装依赖可以直接在终端确认安装;细则行为可以查看readme",
+      "author": {
+        "name": "litroenade",
+        "url": "https://github.com/2829798842"
+      },
+      "license": "GPL-3.0",
+      "host_application": {
+        "min_version": "0.8.0"
+      },
+      "homepage_url": "https://github.com/2829798842/MaiBot-Discord-Adapter",
+      "repository_url": "https://github.com/2829798842/MaiBot-Discord-Adapter",
+      "keywords": [
+        "discord",
+        "adapter",
+        "platform",
+        "voice"
+      ],
+      "categories": [
+        "Platform Adapter"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "platform_adapter",
+        "features": [
+          "Discord 各种消息收发"
+        ]
+      },
+      "id": "MaiBot-Discord-Adapter"
+    }
+  },
+  {
+    "id": "WaterInk0101.proactive_private_chat",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "主动私聊插件",
+      "version": "1.0.0",
+      "description": "让麦麦能够主动发起私聊，可以通过命令触发或由麦麦智能决策触发",
+      "author": {
+        "name": "WaterInk",
+        "url": "https://github.com/WaterInk0101"
+      },
+      "license": "MIT License",
+      "host_application": {
+        "min_version": "0.11.6"
+      },
+      "homepage_url": "https://github.com/WaterInk0101/proactive_private_chat",
+      "repository_url": "https://github.com/WaterInk0101/proactive_private_chat",
+      "keywords": [
+        "私聊",
+        "主动消息",
+        "社交"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales",
+      "categories": [
+        "Entertainment & Interaction"
+      ]
+    }
+  },
+  {
+    "id": "Pekofirst.MCping-for-Maibot",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "mcping 插件",
+      "version": "1.0.4",
+      "description": "一个简单的我的世界服务器查询插件",
+      "author": {
+        "name": "Pekofirst",
+        "url": "https://github.com/Pekofirst"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.10.3"
+      },
+      "repository_url": "https://github.com/Pekofirst/MCping-for-Maibot"
+    }
+  },
+  {
+    "id": "HyperSharkawa.like_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "麦麦赞我",
+      "version": "1.0.0",
+      "description": "让麦麦能给你点赞",
+      "author": {
+        "name": "鲨鱼",
+        "url": "https://github.com/HyperSharkawa"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.5"
+      },
+      "homepage_url": "https://github.com/HyperSharkawa/like_plugin",
+      "repository_url": "https://github.com/HyperSharkawa/like_plugin",
+      "keywords": [
+        "点赞",
+        "互动"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales"
+    }
+  },
+  {
+    "id": "heitiehu-beep.prompt_injection_guard",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "提示词注入防护插件",
+      "version": "1.0.0",
+      "description": "防御提示词注入攻击，支持规则检测和 LLM 检测",
+      "author": {
+        "name": "heitiehu-beep",
+        "url": "https://github.com/heitiehu-beep"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.0"
+      },
+      "repository_url": "https://github.com/heitiehu-beep/prompt_injection_guard",
+      "keywords": [
+        "安全",
+        "提示词注入",
+        "防护",
+        "越狱防御"
+      ],
+      "categories": [
+        "工具"
+      ]
+    }
+  },
+  {
+    "id": "AkariRin.drift-bottle",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "漂流瓶",
+      "version": "1.1.2",
+      "description": "扔漂流瓶、捡漂流瓶，跨群传递消息的互动插件",
+      "author": {
+        "name": "梦清",
+        "url": "https://github.com/AkariRin"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.12.1"
+      },
+      "homepage_url": "https://github.com/AkariRin/drift-bottle-plugin",
+      "repository_url": "https://github.com/AkariRin/drift-bottle-plugin",
+      "keywords": [
+        "漂流瓶"
+      ],
+      "categories": [
+        "Entertainment & Interaction"
+      ],
+      "id": "AkariRin.drift-bottle"
+    }
+  },
+  {
+    "id": "AkariRin.duoshe",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "夺舍",
+      "version": "1.0.0",
+      "description": "偷取群友的ID",
+      "author": {
+        "name": "梦清",
+        "url": "https://github.com/AkariRin"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.12.1"
+      },
+      "homepage_url": "https://github.com/AkariRin/duoshe-plugin",
+      "repository_url": "https://github.com/AkariRin/duoshe-plugin",
+      "keywords": [
+        "夺舍",
+        "群名片"
+      ],
+      "categories": [
+        "Entertainment & Interaction"
+      ],
+      "id": "AkariRin.duoshe"
+    }
+  },
+  {
+    "id": "mmmpipi.MaiBot-DetailedReason-Plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "思考插件",
+      "version": "1.1.0",
+      "description": "帮助推理能力弱的模型更好地对逻辑内容进行推理，相比于thinking模型更快，且推理是可选的",
+      "author": {
+        "name": "mmmpipi",
+        "url": "https://github.com/mmmpipi"
+      },
+      "license": "GPL-v3.0-or-later",
+      "host_application": {
+        "min_version": "0.12.1"
+      },
+      "homepage_url": "https://github.com/mmmpipi/MaiBot-DetailedReason-Plugin",
+      "repository_url": "https://github.com/mmmpipi/MaiBot-DetailedReason-Plugin",
+      "keywords": [
+        "reason"
+      ],
+      "categories": [
+        "Communication"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "communication",
+        "components": [
+          {
+            "type": "tool",
+            "name": "detailed_reason_tool",
+            "description": "供 LLM 调用的推理工具"
+          }
+        ]
+      },
+      "id": "mmmpipi.MaiBot-DetailedReason-Plugin"
+    }
+  },
+  {
+    "id": "ARC.A_Mind",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "A_Mind 智能话题管理插件",
+      "version": "0.2.0",
+      "description": "基于大模型的智能话题发起、追踪和回复插件，支持权限控制和自动状态管理",
+      "author": {
+        "name": "A-Dawn",
+        "url": "https://github.com/A-Dawn"
+      },
+      "license": "AGPL-v3.0-or-later",
+      "host_application": {
+        "min_version": "0.11.0",
+        "max_version": "0.12.3"
+      },
+      "homepage_url": "https://github.com/A-Dawn/A_Mind",
+      "repository_url": "https://github.com/A-Dawn/A_Mind",
+      "keywords": [
+        "topic",
+        "conversation",
+        "AI",
+        "management",
+        "automation"
+      ],
+      "categories": [
+        "Entertainment & Interaction"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "conversation_management",
+        "components": [
+          {
+            "type": "command",
+            "name": "topic_create",
+            "description": "创建新话题"
+          },
+          {
+            "type": "command",
+            "name": "topic_list",
+            "description": "查看话题列表"
+          },
+          {
+            "type": "command",
+            "name": "topic_update",
+            "description": "更新话题信息"
+          },
+          {
+            "type": "command",
+            "name": "topic_delete",
+            "description": "删除话题"
+          },
+          {
+            "type": "command",
+            "name": "topic_visibility",
+            "description": "设置话题可见性"
+          },
+          {
+            "type": "command",
+            "name": "topic_check",
+            "description": "手动状态检查"
+          },
+          {
+            "type": "command",
+            "name": "help_command",
+            "description": "显示帮助信息"
+          },
+          {
+            "type": "command",
+            "name": "debug_commands",
+            "description": "调试功能命令"
+          },
+          {
+            "type": "action",
+            "name": "message_tracker",
+            "description": "消息追踪和回复"
+          },
+          {
+            "type": "action",
+            "name": "state_check",
+            "description": "主动状态检查"
+          }
+        ],
+        "features": [
+          "智能话题管理",
+          "权限控制系统",
+          "大模型集成",
+          "自动状态检查",
+          "调试功能支持"
+        ]
+      },
+      "id": "ARC.A_Mind"
+    }
+  },
+  {
+    "id": "sansenjian.quick_poke",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "quick_poke",
+      "display_name": "简单的戳一戳插件",
+      "version": "1.1.3",
+      "description": "MaiBot 戳一戳插件，支持自动回戳、LLM 文字回复、跟戳功能，可配置触发概率。",
+      "author": {
+        "name": "sansenjian",
+        "url": "https://github.com/sansenjian/quick-poke"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.10.1"
+      },
+      "entry": "plugin.py",
+      "homepage_url": "https://github.com/sansenjian/quick-poke",
+      "repository_url": "https://github.com/sansenjian/quick-poke",
+      "keywords": [
+        "poke",
+        "戳一戳",
+        "QQ",
+        "互动",
+        "插件"
+      ],
+      "categories": [
+        "Fun",
+        "Interaction"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "chat",
+        "components": [
+          {
+            "type": "handler",
+            "name": "PokeEventHandler",
+            "description": "戳一戳事件处理器，自动回戳和生成 LLM 文字回复"
+          },
+          {
+            "type": "action",
+            "name": "PokeAction",
+            "description": "戳一戳动作，供 AI 主动戳人"
+          }
+        ],
+        "features": [
+          "自动回戳",
+          "LLM 文字回复",
+          "跟戳",
+          "概率触发"
+        ]
+      },
+      "id": "sansenjian.quick_poke"
+    }
+  },
+  {
+    "id": "yunchenqwq.easy_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "EasyPlugin 语音合成插件（云端仓库池）",
+      "version": "0.1.0",
+      "description": "基于 GPT-SoVITS 推理特化库（Genie-TTS / GPT-SoVITS ONNX 推理引擎）与魔搭社区（ModelScope Studio）免费托管的语音合成插件，支持按情绪/预设生成语音（emotion 参数直接等同 preset，不做任何映射）以及云端仓库池自动切换。",
+      "author": {
+        "name": "yunchenqwq",
+        "url": "https://github.com/YunChenqwq"
+      },
+      "license": "AGPL-v3.0",
+      "host_application": {
+        "min_version": "0.11.0"
+      },
+      "homepage_url": "https://github.com/YunChenqwq/EasyttsPlugin",
+      "repository_url": "https://github.com/YunChenqwq/EasyttsPlugin",
+      "keywords": [
+        "tts",
+        "voice",
+        "gpt-sovits",
+        "genie-tts",
+        "gradio",
+        "modelscope",
+        "ms.show",
+        "napcat",
+        "emotion",
+        "preset"
+      ],
+      "categories": [
+        "Entertainment",
+        "Voice",
+        "TTS"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "plugin_type": "general",
+        "components": [
+          {
+            "type": "action",
+            "name": "unified_tts_action",
+            "description": "关键词触发自动语音回复（easytts 仓库池）。"
+          },
+          {
+            "type": "command",
+            "name": "unified_tts_command",
+            "description": "手动 /eztts 转语音（easytts 仓库池）。"
+          }
+        ],
+        "dependencies": {
+          "python": [
+            "aiohttp"
+          ],
+          "system": [],
+          "plugins": []
+        }
+      },
+      "configuration": {
+        "config_file": "config.toml",
+        "config_template": "config.toml.example",
+        "auto_generate": true
+      },
+      "id": "yunchenqwq.easy_plugin"
+    }
+  },
+  {
+    "id": "nguspring.custom_pic_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "画家麦麦的自拍日常",
+      "version": "3.5.1",
+      "description": "画家麦麦的自拍日常 - 集智能绘画与自拍生成于一体的 MaiBot 插件。🎨 画图功能：支持文生图/图生图智能识别，兼容 OpenAI、豆包、Gemini、魔搭等多种 API，命令式风格转换，内置 7 个魔搭模型预设。📸 自拍功能：智能日程规划，动态场景描述，自动配文生成，支持自定义人设注入让配文更符合角色设定。提供动态模型切换、风格别名、结果缓存、智能参考搜索（内置 Bing 搜图）等高级特性。完全符合 MaiBot 插件开发标准。",
+      "author": {
+        "name": "Ptrel，Rabbit-Jia-Er，saberlights Kiuon，nguspring",
+        "url": "https://github.com/nguspring/selfie_painter"
+      },
+      "license": "AGPL-3.0",
+      "host_application": {
+        "min_version": "0.10.0"
+      },
+      "homepage_url": "https://github.com/nguspring/selfie_painter",
+      "repository_url": "https://github.com/nguspring/selfie_painter",
+      "keywords": [
+        "画图",
+        "自拍",
+        "日程",
+        "配文",
+        "AI",
+        "图片",
+        "魔搭",
+        "文生图",
+        "图生图",
+        "人设"
+      ],
+      "categories": [
+        "Content Generation",
+        "Entertainment & Interaction"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "image_generator",
+        "components": [
+          {
+            "type": "action",
+            "name": "draw_picture",
+            "description": "智能图片生成，自动识别文生图/图生图",
+            "activation_modes": [
+              "keyword",
+              "llm_judge"
+            ],
+            "keywords": [
+              "画",
+              "绘制",
+              "生成图片",
+              "画图",
+              "图生图",
+              "修改图片",
+              "风格转换"
+            ]
+          },
+          {
+            "type": "command",
+            "name": "pic_generation_command",
+            "description": "风格化图生图命令：/dr <风格>",
+            "pattern": "/dr"
+          },
+          {
+            "type": "command",
+            "name": "pic_config_command",
+            "description": "模型配置管理：/dr list、/dr set等",
+            "pattern": "/dr"
+          },
+          {
+            "type": "command",
+            "name": "pic_style_command",
+            "description": "风格管理：/dr styles、/dr style等",
+            "pattern": "/dr"
+          }
+        ],
+        "features": [
+          "智能文生图/图生图识别",
+          "多API格式支持(OpenAI/豆包/Gemini/魔搭)",
+          "命令式风格转换",
+          "动态模型配置管理",
+          "风格别名系统",
+          "结果缓存机制",
+          "调试开关控制",
+          "支持图生图开关",
+          "智能参考搜索功能（内置Bing搜图）",
+          "自拍模式标准/对镜双模式负面提示词",
+          "内置7个魔搭模型预设"
+        ]
+      }
+    }
+  },
+  {
+    "id": "SkonJIYHD.LifeSimulationPlugin",
+    "manifest": {
+      "manifest_version": 1,
+      "id": "maibot.life_simulation_plugin",
+      "name": "Life Simulation Plugin (AI-Driven)",
+      "name_zh-CN": "事件及人体模拟插件（AI驱动）",
+      "version": "1.7.0",
+      "description": "AI-driven life simulation: schedule, events, habits, holidays, and emotion judgment for human-like behavior",
+      "description_zh-CN": "AI驱动的生活模拟：日程、事件、习惯、节日和情绪判断，实现拟人化行为",
+      "author": {
+        "name": "GLM4.5 and Skon",
+        "url": "https://github.com/SkonJIYHD/LifeSimulationPlugin"
+      },
+      "license": "AGPL-3.0-or-later",
+      "host_application": {
+        "min_version": "0.12.0",
+        "max_version": ""
+      },
+      "homepage_url": "https://github.com/SkonJIYHD/LifeSimulationPlugin",
+      "repository_url": "https://github.com/SkonJIYHD/LifeSimulationPlugin",
+      "keywords": [
+        "life",
+        "simulation",
+        "AI-driven",
+        "schedule",
+        "events",
+        "habits",
+        "holidays",
+        "emotion",
+        "拟人",
+        "生活",
+        "模拟",
+        "AI驱动",
+        "日程",
+        "事件",
+        "习惯",
+        "节日",
+        "情绪"
+      ],
+      "categories": [
+        "Simulation",
+        "Social",
+        "Utility"
+      ],
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "simulation",
+        "components": [
+          {
+            "type": "event_handler",
+            "name": "life_simulation_startup",
+            "description": "Start life simulation scheduler"
+          },
+          {
+            "type": "event_handler",
+            "name": "life_simulation_stop",
+            "description": "Stop life simulation scheduler"
+          },
+          {
+            "type": "event_handler",
+            "name": "life_simulation_state_update",
+            "description": "Update states periodically"
+          },
+          {
+            "type": "event_handler",
+            "name": "life_simulation_message",
+            "description": "Process message events"
+          },
+          {
+            "type": "event_handler",
+            "name": "life_simulation_social_network",
+            "description": "Process social network interactions and update intimacy"
+          },
+          {
+            "type": "event_handler",
+            "name": "life_simulation_sleep",
+            "description": "Handle sleep state and block messages during sleep"
+          },
+          {
+            "type": "action",
+            "name": "perform_activity",
+            "description": "Perform scheduled activity (AI-driven)"
+          },
+          {
+            "type": "action",
+            "name": "handle_event",
+            "description": "Handle random event (AI-driven)"
+          },
+          {
+            "type": "tool",
+            "name": "get_life_simulation_habits",
+            "description": "Get personal habits information (speaking, behavior, interests, preferences)"
+          },
+          {
+            "type": "tool",
+            "name": "get_social_network_info",
+            "description": "Get social network information, including user relationships and intimacy"
+          },
+          {
+            "type": "tool",
+            "name": "set_user_relationship",
+            "description": "Set user relationship type (stranger, acquaintance, friend, close_friend, best_friend, family, partner, enemy, blocked)"
+          },
+          {
+            "type": "tool",
+            "name": "get_life_simulation_schedule",
+            "description": "Get schedule information, including current activity and all scheduled activities"
+          },
+          {
+            "type": "tool",
+            "name": "get_life_simulation_status",
+            "description": "Get current status including physiological states, current activity, and holiday information"
+          },
+          {
+            "type": "command",
+            "name": "life_status",
+            "description": "Query current status",
+            "pattern": "/life_status"
+          },
+          {
+            "type": "command",
+            "name": "life_schedule",
+            "description": "Query AI-generated schedule",
+            "pattern": "/life_schedule"
+          },
+          {
+            "type": "command",
+            "name": "life_social",
+            "description": "Query social network information",
+            "pattern": "/life_social [list|detail] [user_id]"
+          }
+        ],
+        "features": [
+          "AI-driven schedule generation (work, leisure, meals, daily routine)",
+          "AI-driven random event generation",
+          "Health status determined by random events and schedule",
+          "Habits from config or AI-generated based on personality",
+          "Holiday API integration for dynamic holiday detection",
+          "AI-driven emotion judgment based on multiple factors",
+          "Illness system: AI judges illness based on multiple factors",
+          "Auto-regenerate schedule based on health status",
+          "All prompts in config file (fully customizable)",
+          "AI-generated dialogue (no fixed messages)",
+          "Read-only physiological state data (cannot be modified by commands)",
+          "Configurable AI models (tool_use, planner, replyer, utils, vlm, voice, embedding, lpmm_entity_extract, lpmm_rdf_build)",
+          "Customizable time/date API",
+          "Prompts loaded from config file (not hardcoded)",
+          "User-friendly configuration file",
+          "Tool component for LLM to access habits information",
+          "Social network system for managing user relationships",
+          "Intimacy system with growth and decay mechanisms",
+          "AI-driven intimacy judgment based on interaction content",
+          "Tool component for LLM to set user relationship type (including enemy and blocked)",
+          "Tool component for LLM to get schedule information and current activity",
+          "Tool component for LLM to get current status information (fatigue, hunger, health, emotion, sleep state etc.)",
+          "Complete sleep system with 6 sleep states and automatic transitions",
+          "Sleep-schedule integration: automatically enters/wakes up based on schedule activities",
+          "AI-driven auto-reply during sleep: intelligently judges whether to reply",
+          "Disturbance wake-up: can be woken by frequent messages, important senders, or urgent keywords"
+        ],
+        "configuration": {
+          "auto_generate_config": true,
+          "config_file": "config.toml"
+        }
+      },
+      "changelog": {
+        "1.7.0": [
+          "Added feature toggle configuration section [features] to config file",
+          "All major plugin features can now be individually enabled/disabled via config",
+          "Added startup_enabled toggle for startup handler",
+          "Added stop_enabled toggle for stop handler",
+          "Added state_update_enabled toggle for state update handler",
+          "Added message_event_enabled toggle for message event handler",
+          "Added social_network_enabled toggle for social network feature",
+          "Added sleep_system_enabled toggle for sleep system",
+          "Added activity_execution_enabled toggle for activity execution feature",
+          "Added event_handling_enabled toggle for random event handling feature",
+          "Added commands_enabled toggle for command feature",
+          "Added tools_enabled toggle for tool feature",
+          "Enhanced get_life_simulation_status tool to display date information",
+          "Now shows yesterday, today, tomorrow, and day after tomorrow dates",
+          "Date display format: '昨天 | 1月17日 星期六'",
+          "Improved time display clarity and user experience",
+          "Added _generate_with_retry method for robust LLM JSON parsing with automatic retry",
+          "Enhanced _generate_with_retry method with robust JSON parsing: regex extraction for handling AI-wrapped JSON responses",
+          "Added Chinese punctuation replacement in JSON cleaning (，：；！？（）【】｛｝等 → ,:;!?()[]{}etc.) to handle LLM output with Chinese punctuation",
+          "Added dynamic max_tokens calculation for schedule generation to prevent JSON truncation (auto-adjusts to 3500 tokens for 15 activities)",
+          "Fixed SocialNetworkDB initialization: now ensures parent directory exists before creating database file",
+          "Replaced manual JSON parsing logic in _judge_intimacy_increase with new retry mechanism",
+          "Enhanced GetSocialNetworkTool to support user_name lookup in addition to user_id",
+          "Enhanced SetRelationshipTool to support user_name lookup in addition to user_id",
+          "Fixed missing Union type import in typing imports",
+          "Fixed MessageSleepEventHandler bot_id detection: now uses message.message_base_info.get('self_id')",
+          "Fixed MessageSleepEventHandler schedule sync: now bidirectionally syncs with schedule (enters sleep when schedule is sleep, wakes up when schedule is not sleep)",
+          "Sleep handler now properly wakes up when current activity changes from sleep to non-sleep activities",
+          "Fixed cross-day time range handling in schedule system",
+          "Updated schedule_generation prompt to allow cross-day sleep schedules",
+          "Cleaned up duplicate requirements in schedule_generation prompt",
+          "Fixed numbering in default config prompt's 'Notes' section (1-10 sequential)"
+        ],
+        "1.6.0": [
+          "Fixed tool parameter format for GetSocialNetworkTool and SetRelationshipTool",
+          "Changed parameters from dictionary format to tuple format to comply with BaseTool requirements",
+          "Tools now properly pass parameter validation and can be called by LLM",
+          "Registered SocialNetworkEventHandler for automatic social network interaction tracking",
+          "Registered SocialNetworkCommand for manual social network queries (/life_social)",
+          "Registered MessageSleepEventHandler for sleep state management and message blocking",
+          "Updated _manifest.json to include all 16 components (6 event handlers, 2 actions, 5 tools, 3 commands)",
+          "Social network system now fully functional with automatic interaction recording",
+          "Plugin now fully compliant with MaiBot standard plugin format",
+          "Implemented complete sleep system with 6 sleep states (awake, sleepy, falling_asleep, light_sleep, deep_sleep, waking_up)",
+          "Sleep state automatically transitions based on time and conditions",
+          "Sleep system integrates with schedule: automatically enters sleep when current activity is sleep type",
+          "Sleep system integrates with schedule: automatically wakes up when activity changes from sleep",
+          "AI-driven auto-reply during sleep: AI judges whether to reply and what to say based on sleep state, message content, and relationship",
+          "Disturbance wake-up mechanism: can be woken up by frequent messages, important messages, or urgent keywords",
+          "Light sleep has higher wake-up probability, deep sleep has lower wake-up probability",
+          "Fatigue gradually recovers during sleep (0.5-1 per minute)",
+          "Health gradually recovers during sleep (0.1-0.2 per minute)",
+          "Configurable sleep duration limits (minimum 4 hours, maximum 10 hours)",
+          "Configurable auto-reply message during sleep",
+          "Supports manual wake-up functionality",
+          "Added sleep_reply_judgment AI prompt for judging whether to reply during sleep",
+          "Removed AI-driven auto-reply during sleep system",
+          "Removed sleep_reply_judgment AI prompt",
+          "Simplified sleep reply to use fixed message from config file",
+          "Removed ai_reply_enabled, ai_model, and ai_reply_probability configuration options",
+          "Sleep system now uses configured sleep_reply message directly",
+          "Disturbance wake-up mechanism remains functional",
+          "Fixed sleep state logic: awake and sleepy states allow normal processing, other sleep states (falling_asleep, light_sleep, deep_sleep, waking_up) block messages without reply",
+          "Removed duplicate disturbance wake-up check code",
+          "Fixed missing prompts in default config: added social_network_analysis and intimacy_judgment prompts to _get_default_config_content method",
+          "Fixed config file generation check: updated _ensure_config_with_prompts and _write_default_config_with_prompts to check all 6 prompts including social_network_analysis and intimacy_judgment",
+          "Added fallback mechanism in _get_prompt: if prompt not found in config file, automatically load from default config to prevent 'empty prompt' errors",
+          "Fixed TOML parsing issue in plugin_base.py: updated to use tomllib (Python 3.11+ builtin) instead of toml library to fix multi-line string parsing bug that caused only 3 prompts to be loaded",
+          "Enhanced habit_generation prompt: added explicit rules and examples to prevent LLM from using quotes inside JSON strings, which caused JSON parsing failures",
+          "Optimized intimacy judgment: added ai_judgment_probability configuration to control how often AI is called for intimacy increase (default: 30%)",
+          "Added logging configuration: logging.level and logging.verbose settings to control debug log output",
+          "Production version does not include debug commands (only in debug version)",
+          "Fixed social network interaction during sleep: added sleep state check in SocialNetworkEventHandler to skip interaction recording during sleep states (falling_asleep, light_sleep, deep_sleep, waking_up), preventing inappropriate intimacy increases while sleeping",
+          "Added notice message filtering: SocialNetworkEventHandler now skips notice messages (e.g., group_recall) to prevent inappropriate interaction recording for system notifications",
+          "Fixed waking_up state transition: added handling for WAKING_UP state in schedule change logic to properly transition to AWAKE state, preventing WAKING_UP state from getting stuck",
+          "Fixed random event generation in debug command: added check_probability parameter to _generate_random_event method, allowing debug commands to force trigger events without probability checks, preventing false 'event generation failed' messages when events are generated but fail probability check",
+          "Fixed intimacy judgment prompt formatting: escaped curly braces in JSON examples (changed {} to {{}}) to prevent KeyError during prompt.format() when formatting prompts with JSON format examples",
+          "Added recent event tracking: added recent_event and recent_event_time fields to state to track recently handled random events, allowing GetScheduleTool to display recent events (within last 5 minutes) when user asks 'what are you doing', providing more natural and contextual responses about recent activities",
+          "Fixed event-schedule conflict: when a random event occurs, current activity is temporarily changed to 'handling_event' during event processing, then restored to the previous schedule activity after event is handled, preventing logical conflicts between scheduled activities and random events",
+          "Fixed event persistence: added state save after handling random events in _handle_event method, ensuring recent_event information is persisted to file and can be retrieved by GetScheduleTool, preventing 'no recent event found' issue when user asks 'what are you doing'",
+          "Enhanced schedule description: updated schedule_generation prompt to require detailed activity descriptions (e.g., '在图书馆写论文' instead of just '写论文'), helping AI better understand what the robot is doing",
+          "Added time information to GetScheduleTool: now returns current activity time and current time (HH:MM and date) in the response, allowing the main reply system to know the current time and provide more contextual responses",
+          "Enhanced get_life_simulation_status tool: now retrieves detailed activity description from schedule array instead of using brief current_activity_description field, and adds current activity time and current time (HH:MM and date) to status output, providing more comprehensive and detailed status information for AI to understand current context",
+          "Fixed social network interaction recording: SocialNetworkEventHandler now only records interactions and judges intimacy when the message is directed to bot (private messages, or group messages where bot is mentioned or @ed), preventing inappropriate intimacy increases for messages not directed to bot"
+        ],
+        "1.5.0": [
+          "Added SetRelationshipTool for LLM to set user relationship type",
+          "AI can now set users as enemy or blocked",
+          "Added relationship change reason tracking",
+          "Updated GetSocialNetworkTool to be available for LLM",
+          "Improved social network system documentation"
+        ],
+        "1.4.0": [
+          "Implemented intimacy AI judgment growth method",
+          "Implemented intimacy probability growth method",
+          "Added intimacy_growth_method configuration (ai/probability/fixed)",
+          "Added intimacy judgment AI prompts",
+          "Intimacy growth based on message content with AI judgment",
+          "Support for probability growth (default 70% probability)",
+          "Support for fixed growth (fixed amount per interaction)",
+          "Updated documentation for intimacy growth mechanism"
+        ],
+        "1.3.0": [
+          "Implemented social network features",
+          "Added user relationship management (9 relationship types)",
+          "Implemented intimacy system (growth and decay)",
+          "Automatic user interaction history recording",
+          "Added SocialNetworkEventHandler",
+          "Added GetSocialNetworkTool",
+          "Added SocialNetworkCommand",
+          "Added social network configuration",
+          "Added social network AI prompts",
+          "Updated documentation for social network features"
+        ],
+        "1.2.0": [
+          "Optimized message state update mechanism to probability-based",
+          "Added message_state_update_probability configuration",
+          "Default 70% probability update for fatigue and hunger",
+          "Prevents excessive message causing rapid state growth",
+          "Updated documentation for probability update mechanism"
+        ],
+        "1.1.0": [
+          "Removed i18n system (user feedback)",
+          "Prompts moved from hardcoded to config file",
+          "Added configurable AI models (tool_use, planner, replyer)",
+          "Added customizable time/date API",
+          "Optimized configuration file structure for better readability",
+          "All user-facing text now in Chinese (simplified)",
+          "Added detailed Chinese comments in config file"
+        ],
+        "1.0.0": [
+          "Initial release - AI-driven version",
+          "Implemented AI-driven schedule generation system",
+          "Implemented AI-driven random event generation",
+          "Implemented health status determined by events and schedule",
+          "Implemented habits system (config + AI generation)",
+          "Implemented holiday API integration",
+          "Implemented AI-driven emotion judgment",
+          "Implemented editable AI prompts with well-designed defaults",
+          "Implemented state management and persistence",
+          "Added i18n support (zh-CN, en)",
+          "Added detailed bilingual configuration comments",
+          "Removed fixed schedule configuration (now AI-generated)",
+          "Removed timed events (replaced by AI-driven schedule)",
+          "All dialogue is AI-generated, not fixed",
+          "Physiological state data is read-only (cannot be modified by commands)"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dglab_coyote_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "DG-Lab 郊狼控制插件 (DGLab Coyote Plugin)",
+      "version": "1.0.0",
+      "description": "通过 DG-Lab WebSocket 接口连接郊狼设备，并提供 LLM Action 调用控制强度与波形的能力",
+      "author": {
+        "name": "薄暝",
+        "url": "https://github.com/exynos967"
+      },
+      "license": "GPL-v3.0-or-later",
+      "host_application": {
+        "min_version": "0.10.0"
+      },
+      "homepage_url": "https://github.com/exynos967/dglab_coyote_plugin",
+      "repository_url": "https://github.com/exynos967/dglab_coyote_plugin",
+      "keywords": [
+        "dglab",
+        "coyote",
+        "toy-control",
+        "integration"
+      ],
+      "categories": [
+        "External Integration",
+        "Utility Tools"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "integration",
+        "components": [
+          {
+            "type": "action",
+            "name": "coyote_connect",
+            "description": "连接 DG-Lab WebSocket 服务端并获取扫码二维码的 Action"
+          },
+          {
+            "type": "action",
+            "name": "coyote_set_strength",
+            "description": "控制郊狼设备 A/B 通道强度的 Action"
+          },
+          {
+            "type": "action",
+            "name": "coyote_add_waveform",
+            "description": "向郊狼设备追加波形数据的 Action"
+          },
+          {
+            "type": "action",
+            "name": "coyote_clear_waveform",
+            "description": "清空郊狼设备某个通道波形队列的 Action"
+          },
+          {
+            "type": "action",
+            "name": "coyote_play_preset",
+            "description": "在指定通道播放内置或 .pulse 预设波形（循环模式）的 Action"
+          }
+        ],
+        "features": [
+          "通过 WebSocket 连接 DG-Lab 郊狼设备",
+          "提供 LLM 可调用的强度控制 Action",
+          "提供 LLM 可调用的波形控制与清空 Action",
+          "通过配置文件控制连接参数与安全上限"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sansenjian.quick_repeat",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "quick_repeat",
+      "display_name": "智能复读插件",
+      "version": "1.1.0",
+      "description": "MaiBot 智能复读插件，自动检测连续重复消息并复读，支持冷却机制、防刷屏保护和防模仿功能。",
+      "author": {
+        "name": "sansenjian",
+        "url": "https://github.com/sansenjian/quick-repeat"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.10.1"
+      },
+      "entry": "plugin.py",
+      "homepage_url": "https://github.com/sansenjian/quick-repeat",
+      "repository_url": "https://github.com/sansenjian/quick-repeat",
+      "keywords": [
+        "repeat",
+        "复读",
+        "复读机",
+        "QQ",
+        "群聊",
+        "插件"
+      ],
+      "categories": [
+        "Fun",
+        "Chat"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "chat",
+        "components": [
+          {
+            "type": "handler",
+            "name": "RepeatEventHandler",
+            "description": "复读事件处理器，检测并复读重复消息"
+          }
+        ],
+        "features": [
+          "智能复读检测",
+          "可配置重复消息数量",
+          "可选的单用户检测",
+          "冷却机制",
+          "防刷屏保护",
+          "防模仿功能",
+          "开箱即用"
+        ]
+      },
+      "id": "sansenjian.quick_repeat"
+    }
+  },
+  {
+    "id": "checkin_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "QQ自动群打卡插件",
+      "version": "1.0.10",
+      "description": "自动调用napcat接口获取群列表，实现批量群打卡，无命令触发，配置生效",
+      "author": {
+        "name": "miantaoo",
+        "url": "https://github.com/miantaoo"
+      },
+      "license": "GPL-3.0",
+      "host_application": {
+        "min_version": "0.10.0"
+      },
+      "homepage_url": "https://github.com/miantaoo/checkin_plugin",
+      "repository_url": "https://github.com/miantaoo/checkin_plugin",
+      "keywords": [
+        "签到",
+        "自动签到",
+        "checkin",
+        "自动化"
+      ],
+      "categories": [
+        "Utility Tools",
+        "External Integration"
+      ]
+    }
+  },
+  {
+    "id": "poncianopadolcg658-byte.maibot-video-generation",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "doubao_video_generator",
+      "version": "1.0.0",
+      "description": "使用豆包API生成视频，支持多种视频参数配置",
+      "author": {
+        "name": "帕朵",
+        "url": "https://github.com/poncianopadolcg658-byte"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.6"
+      },
+      "homepage_url": "https://github.com/poncianopadolcg658-byte/maimaidoubao",
+      "repository_url": "https://github.com/poncianopadolcg658-byte/maimaidoubao",
+      "keywords": [
+        "视频生成",
+        "豆包"
+      ],
+      "categories": [
+        "Content Generation",
+        "Multimedia"
+      ],
+      "default_locale": "CN",
+      "locales_path": "_locales"
+    }
+  },
+  {
+    "id": "A-Dawn.A_memorix",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "A_Memorix",
+      "version": "0.2.0",
+      "description": "轻量级知识库插件 - 基于双路检索的完全独立的记忆增强系统，优化低资源环境下的知识存储与检索",
+      "author": {
+        "name": "A_Dawn"
+      },
+      "license": "AGPL-3.0",
+      "repository_url": "https://github.com/A-Dawn/A_memorix/",
+      "host_application": {
+        "min_version": "0.12.1"
+      },
+      "keywords": [
+        "知识库",
+        "记忆",
+        "检索",
+        "向量存储",
+        "知识图谱"
+      ],
+      "categories": [
+        "Utility Tools",
+        "Data Analysis & Insights"
+      ],
+      "required_plugins": [],
+      "config_schema": {
+        "storage": {
+          "data_dir": {
+            "type": "string",
+            "default": "./data",
+            "description": "知识库数据目录"
+          }
+        },
+        "embedding": {
+          "dimension": {
+            "type": "integer",
+            "default": 384,
+            "description": "嵌入向量维度"
+          },
+          "quantization_type": {
+            "type": "string",
+            "default": "int8",
+            "enum": [
+              "float32",
+              "int8",
+              "pq"
+            ],
+            "description": "向量量化类型"
+          },
+          "batch_size": {
+            "type": "integer",
+            "default": 32,
+            "description": "批量生成嵌入的批次大小"
+          },
+          "max_concurrent": {
+            "type": "integer",
+            "default": 5,
+            "description": "嵌入API最大并发请求数"
+          },
+          "model_name": {
+            "type": "string",
+            "default": "auto",
+            "description": "指定嵌入模型名称 (对应 model_config.toml 中的 name)"
+          }
+        },
+        "retrieval": {
+          "top_k_relations": {
+            "type": "integer",
+            "default": 10,
+            "description": "关系检索返回数量"
+          },
+          "top_k_paragraphs": {
+            "type": "integer",
+            "default": 20,
+            "description": "段落检索返回数量"
+          },
+          "alpha": {
+            "type": "number",
+            "default": 0.5,
+            "description": "双路检索融合权重 (0:仅关系, 1:仅段落)"
+          },
+          "enable_ppr": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用 Personalized PageRank 重排序"
+          },
+          "ppr_alpha": {
+            "type": "number",
+            "default": 0.85,
+            "description": "PPR 的 alpha 参数"
+          },
+          "ppr_concurrency_limit": {
+            "type": "integer",
+            "default": 4,
+            "description": "PPR 计算的最大并发数（防止 CPU 过载）"
+          },
+          "enable_parallel": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用并行检索"
+          }
+        },
+        "threshold": {
+          "min_threshold": {
+            "type": "number",
+            "default": 0.3,
+            "description": "搜索结果的最小阈值"
+          },
+          "max_threshold": {
+            "type": "number",
+            "default": 0.95,
+            "description": "搜索结果的最大阈值"
+          },
+          "percentile": {
+            "type": "number",
+            "default": 75,
+            "description": "动态阈值的分位数"
+          },
+          "std_multiplier": {
+            "type": "number",
+            "default": 1.5,
+            "description": "标准差倍数（用于异常值过滤）"
+          },
+          "min_results": {
+            "type": "integer",
+            "default": 3,
+            "description": "即使未达标也强制返回的最小结果数"
+          },
+          "enable_auto_adjust": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否根据结果分布自动调整阈值"
+          }
+        },
+        "graph": {
+          "sparse_matrix_format": {
+            "type": "string",
+            "default": "csr",
+            "enum": [
+              "csr",
+              "csc"
+            ],
+            "description": "稀疏矩阵存储格式"
+          }
+        },
+        "web": {
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用可视化编辑服务器"
+          },
+          "port": {
+            "type": "integer",
+            "default": 8082,
+            "description": "服务器端口"
+          },
+          "host": {
+            "type": "string",
+            "default": "0.0.0.0",
+            "description": "服务器绑定地址"
+          }
+        },
+        "advanced": {
+          "enable_auto_save": {
+            "type": "boolean",
+            "default": true,
+            "description": "启用自动保存（原子化统一持久化）"
+          },
+          "auto_save_interval_minutes": {
+            "type": "integer",
+            "default": 5,
+            "description": "自动保存间隔（分钟）"
+          },
+          "debug": {
+            "type": "boolean",
+            "default": false,
+            "description": "启用详细调试日志"
+          },
+          "extraction_model": {
+            "type": "string",
+            "default": "auto",
+            "description": "指定知识抽取模型名称 (对应 model_config.toml 中的 name)"
+          }
+        },
+        "summarization": {
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用总结导入功能"
+          },
+          "model_name": {
+            "type": "string",
+            "default": "auto",
+            "description": "总结使用的模型名称"
+          },
+          "context_length": {
+            "type": "integer",
+            "default": 50,
+            "description": "总结消息的上下文条数"
+          },
+          "include_personality": {
+            "type": "boolean",
+            "default": true,
+            "description": "总结提示词是否包含机器人人设"
+          },
+          "default_knowledge_type": {
+            "type": "string",
+            "default": "narrative",
+            "enum": [
+              "narrative",
+              "factual",
+              "structured"
+            ],
+            "description": "总结导入时的默认知识类型"
+          }
+        },
+        "schedule": {
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用定时自动导入"
+          },
+          "import_times": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [
+              "04:00"
+            ],
+            "description": "每日自动导入的时间点列表 (24小时制)"
+          }
+        },
+        "filter": {
+          "enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否启用聊天流过滤"
+          },
+          "mode": {
+            "type": "string",
+            "default": "whitelist",
+            "enum": [
+              "whitelist",
+              "blacklist"
+            ],
+            "description": "过滤模式：whitelist(白名单) 或 blacklist(黑名单)"
+          },
+          "chats": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [],
+            "description": "聊天流 ID 列表。支持格式: 1. 纯数字 (兼容模式); 2. 显式指定: 'group:12345'(群号), 'user:10001'(私聊), 'stream:hash'(流ID)"
+          }
+        }
+      },
+      "dependencies": {
+        "required": [
+          "numpy>=1.20.0",
+          "scipy>=1.7.0",
+          "nest-asyncio>=1.5.0",
+          "faiss-cpu>=1.7.0",
+          "fastapi>=0.100.0",
+          "uvicorn>=0.20.0",
+          "pydantic>=2.0.0"
+        ],
+        "optional": []
+      },
+      "id": "A_Dawn.A_memorix"
+    }
+  },
+  {
+    "id": "wentaoxian6-svg.MaiBot-rule_horror_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "规则怪谈插件",
+      "version": "1.5",
+      "description": "生成规则怪谈并进行互动游戏，支持LLM生成、提示、推理和多种结局判定",
+      "author": {
+        "name": "岚影鸿夜",
+        "url": "https://github.com/wentaoxian6-svg"
+      },
+      "license": "MIT",
+      "homepage_url": "https://github.com/wentaoxian6-svg/MaiBot-rule_horror_plugin",
+      "repository_url": "https://github.com/wentaoxian6-svg/MaiBot-rule_horror_plugin",
+      "host_application": {
+        "min_version": "0.12.2"
+      },
+      "keywords": [
+        "规则怪谈",
+        "游戏",
+        "LLM",
+        "互动",
+        "推理"
+      ],
+      "categories": [
+        "Entertainment & Interaction",
+        "Content Generation"
+      ],
+      "id": "wentaoxian6-svg.MaiBot-rule_horror_plugin"
+    }
+  },
+  {
+    "id": "FoolOyster.mai-video-plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "视频生成插件(mai-video-plugin)",
+      "version": "0.1.0",
+      "description": "兼容 多种视频生成模型 API 的麦麦视频生成插件，支持文生视频与图生视频，仅支持QQ平台",
+      "author": {
+        "name": "Fooloyster",
+        "url": "https://github.com/FoolOyster/mai-video-plugin"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.10.0"
+      },
+      "homepage_url": "https://github.com/FoolOyster/mai-video-plugin",
+      "repository_url": "https://github.com/FoolOyster/mai-video-plugin",
+      "keywords": [
+        "video",
+        "ai",
+        "multimedia"
+      ],
+      "categories": [
+        "Video",
+        "Multimedia",
+        "Entertainment"
+      ],
+      "default_locale": "CN",
+      "locales_path": "_locales"
+    }
+  },
+  {
+    "id": "HyperSharkawa.msg_react_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "麦麦贴表情插件",
+      "version": "1.0.0",
+      "description": "让麦麦能在群聊中贴表情",
+      "author": {
+        "name": "鲨鱼",
+        "url": "https://github.com/HyperSharkawa"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.6"
+      },
+      "homepage_url": "https://github.com/HyperSharkawa/maibot-msg-react-plugin",
+      "repository_url": "https://github.com/HyperSharkawa/maibot-msg-react-plugin",
+      "keywords": [
+        "贴表情",
+        "群组",
+        "互动"
+      ],
+      "categories": [
+        "Entertainment & Interaction"
+      ],
+      "default_locale": "zh-CN",
+      "locales_path": "_locales"
+    }
+  },
+  {
+    "id": "sansenjian.quick_date_perception",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "quick_date_perception",
+      "display_name": "快速日期感知",
+      "version": "1.0.0",
+      "description": "轻量级日期感知插件，为麦麦提供时间、日期、节假日、农历、节气等环境感知能力。支持多数据源降级策略，在依赖库缺失时优雅降级。",
+      "author": {
+        "name": "sansenjian",
+        "url": "https://github.com/sansenjian/quick-date-perception"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.7.0"
+      },
+      "entry": "plugin.py",
+      "homepage_url": "https://github.com/sansenjian/quick-date-perception",
+      "repository_url": "https://github.com/sansenjian/quick-date-perception",
+      "keywords": [
+        "date",
+        "time",
+        "日期",
+        "时间",
+        "节假日",
+        "农历",
+        "节气",
+        "感知"
+      ],
+      "categories": [
+        "Utility Tools"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "utility",
+        "components": [
+          {
+            "type": "handler",
+            "name": "DateInjectEventHandler",
+            "description": "日期注入事件处理器，自动注入日期信息到 LLM Prompt"
+          },
+          {
+            "type": "tool",
+            "name": "DateTool",
+            "description": "日期查询工具，供 LLM 主动调用"
+          },
+          {
+            "type": "command",
+            "name": "DateCommand",
+            "description": "日期查询命令，用户可通过 /date 命令查询"
+          }
+        ],
+        "features": [
+          "时区感知的日期时间获取",
+          "星期和时间段识别",
+          "节假日和调休识别",
+          "农历日期转换",
+          "二十四节气计算",
+          "LLM Prompt 自动注入",
+          "Tool 工具接口",
+          "Command 命令接口",
+          "LLM 自然语言扩展",
+          "优雅降级机制"
+        ]
+      },
+      "id": "sansenjian.quick_date_perception"
+    }
+  },
+  {
+    "id": "yueshenqiu.video_generator_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "视频生成插件",
+      "version": "1.0.0",
+      "description": "支持多服务商的AI视频生成插件，提供文生视频、图生视频、首尾帧控制等功能，支持火山引擎、阿里云、智谱等服务商",
+      "author": {
+        "name": "三花",
+        "url": "https://github.com/yueshenqiu"
+      },
+      "license": "GPL-3.0",
+      "host_application": {
+        "min_version": "0.12.0"
+      },
+      "homepage_url": "https://github.com/yueshenqiu/video_generator_plugin",
+      "repository_url": "https://github.com/yueshenqiu/video_generator_plugin",
+      "keywords": [
+        "video",
+        "generation",
+        "text-to-video",
+        "image-to-video",
+        "AI",
+        "视频生成",
+        "文生视频",
+        "图生视频",
+        "豆包",
+        "通义万相",
+        "CogVideoX"
+      ],
+      "categories": [
+        "Content Generation",
+        "Multimedia"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "general",
+        "components": [
+          {
+            "type": "action",
+            "name": "video_generate",
+            "description": "智能视频生成 Action，根据用户描述自动生成视频"
+          },
+          {
+            "type": "command",
+            "name": "video_generator",
+            "description": "视频生成命令，提供完整的视频生成控制功能"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "Rxiain.a1ctf_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "A1CTF平台群通知插件",
+      "version": "1.0.0",
+      "description": "监控A1CTF平台的公告与解题情况，解题情况播报LLM润色等",
+      "author": {
+        "name": "orxiain",
+        "url": "https://github.com/Rxiain"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.6"
+      },
+      "homepage_url": "https://github.com/Rxiain/a1ctf_plugin",
+      "repository_url": "https://github.com/Rxiain/a1ctf_plugin",
+      "keywords": [
+        "A1CTF",
+        "CTF",
+        "notification",
+        "LLM",
+        "monitoring"
+      ],
+      "categories": [
+        "External Integration"
+      ],
+      "default_locale": "zh-CN",
+      "id": "orxiain.a1ctf_plugin"
+    }
+  },
+  {
+    "id": "CharTyr.Mai-Soul-Engine",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "Mai-Soul-Engine",
+      "version": "1.3.3",
+      "description": "Mai-Soul-Engine - 通过问卷初始化意识形态光谱，根据聊天内容动态演化，影响MaiBot的回复风格",
+      "author": {
+        "name": "CharTyr ",
+        "url": "https://github.com/CharTyr/Mai-Soul-Engine"
+      },
+      "host_application": {
+        "min_version": "0.12.0"
+      },
+      "license": "GPL-3.0-or-later",
+      "plugin_info": {
+        "components": [
+          {
+            "type": "command",
+            "name": "soul_setup",
+            "description": "初始化灵魂光谱问卷（管理员私聊）"
+          },
+          {
+            "type": "command",
+            "name": "soul_answer",
+            "description": "问卷答题：/soul_answer <1-5>（仅在问卷会话中生效）"
+          },
+          {
+            "type": "command",
+            "name": "soul_status",
+            "description": "查看当前意识形态光谱状态"
+          },
+          {
+            "type": "command",
+            "name": "soul_reset",
+            "description": "重置意识形态光谱"
+          },
+          {
+            "type": "command",
+            "name": "soul_seeds",
+            "description": "查看待审核的思维种子（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_approve",
+            "description": "批准思维种子内化（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_reject",
+            "description": "拒绝并删除思维种子（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_traits",
+            "description": "查看已固化的 traits（管理员，可按群过滤）"
+          },
+          {
+            "type": "command",
+            "name": "soul_trait_set_tags",
+            "description": "设置指定 trait 的 tags（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_trait_merge",
+            "description": "合并两个 trait（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_trait_disable",
+            "description": "禁用指定 trait（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_trait_enable",
+            "description": "启用指定 trait（管理员）"
+          },
+          {
+            "type": "command",
+            "name": "soul_trait_delete",
+            "description": "删除指定 trait（管理员，软删除）"
+          },
+          {
+            "type": "event_handler",
+            "name": "ideology_injector",
+            "description": "POST_LLM 事件处理器：把意识形态提示词注入到 prompt"
+          },
+          {
+            "type": "event_handler",
+            "name": "evolution_task",
+            "description": "周期性演化任务，分析聊天内容更新光谱"
+          },
+          {
+            "type": "event_handler",
+            "name": "notion_frontend_sync",
+            "description": "可选：同步 traits 与意识形态光谱到 Notion 数据库（公共展示前端）"
+          }
         ]
       }
     }

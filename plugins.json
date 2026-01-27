@@ -313,7 +313,7 @@
   },
   {
     "id": "pulsarmatrix.servercmd_plugin",
-    "repositoryUrl":"https://github.com/pulsarmatrix/servercmd_plugin"
+    "repositoryUrl": "https://github.com/pulsarmatrix/servercmd_plugin"
   },
   {
     "id": "Rabbit-Jia-Er.mai_clinic_plugin",
@@ -352,7 +352,7 @@
     "repositoryUrl": "https://github.com/ThelevenFD/wait_remover"
   },
   {
-    "id": "Alvter.repeat_content_plugin", 
+    "id": "Alvter.repeat_content_plugin",
     "repositoryUrl": "https://github.com/Alvter/repeat_content_plugin"
   },
   {
@@ -370,5 +370,111 @@
   {
     "id": "WaterInk0101.Groupsign",
     "repositoryUrl": "https://github.com/WaterInk0101/groupsign"
+  },
+  {
+    "id": "AkariRin.jrlp",
+    "repositoryUrl": "https://github.com/AkariRin/jrlp-plugin"
+  },
+  {
+    "id": "MaiBot-Discord-Adapter",
+    "repositoryUrl": "https://github.com/2829798842/MaiBot-Discord-Adapter"
+  },
+  {
+    "id": "WaterInk0101.proactive_private_chat",
+    "repositoryUrl": "https://github.com/WaterInk0101/proactive_private_chat"
+  },
+  {
+    "id": "Pekofirst.MCping-for-Maibot",
+    "repositoryUrl": "https://github.com/Pekofirst/MCping-for-Maibot"
+  },
+  {
+    "id": "HyperSharkawa.like_plugin",
+    "repositoryUrl": "https://github.com/HyperSharkawa/like_plugin"
+  },
+  {
+    "id": "heitiehu-beep.prompt_injection_guard",
+    "repositoryUrl": "https://github.com/heitiehu-beep/prompt_injection_guard"
+  },
+  {
+    "id": "AkariRin.drift-bottle",
+    "repositoryUrl": "https://github.com/AkariRin/drift-bottle-plugin"
+  },
+  {
+    "id": "AkariRin.duoshe",
+    "repositoryUrl": "https://github.com/AkariRin/duoshe-plugin"
+  },
+  {
+    "id": "mmmpipi.MaiBot-DetailedReason-Plugin",
+    "repositoryUrl": "https://github.com/mmmpipi/MaiBot-DetailedReason-Plugin"
+  },
+  {
+    "id": "ARC.A_Mind",
+    "repositoryUrl": "https://github.com/A-Dawn/A_Mind"
+  },
+  {
+    "id": "sansenjian.quick_poke",
+    "repositoryUrl": "https://github.com/sansenjian/quick-poke"
+  },
+  {
+    "id": "yunchenqwq.easy_plugin",
+    "repositoryUrl": "https://github.com/YunChenqwq/EasyttsPlugin"
+  },
+  {
+    "id": "nguspring.custom_pic_plugin",
+    "repositoryUrl": "https://github.com/nguspring/custom_pic_plugin"
+  },
+  {
+    "id": "SkonJIYHD.LifeSimulationPlugin",
+    "repositoryUrl": "https://github.com/SkonJIYHD/LifeSimulationPlugin"
+  },
+  {
+    "id": "dglab_coyote_plugin",
+    "repositoryUrl": "https://github.com/exynos967/dglab_coyote_plugin"
+  },
+  {
+    "id": "sansenjian.quick_repeat",
+    "repositoryUrl": "https://github.com/sansenjian/quick-repeat"
+  },
+  {
+    "id": "checkin_plugin",
+    "repositoryUrl": "https://github.com/miantaoo/checkin_plugin"
+  },
+  {
+    "id": "poncianopadolcg658-byte.maibot-video-generation",
+    "repositoryUrl": "https://github.com/poncianopadolcg658-byte/maimaidoubao"
+  },
+  {
+    "id": "A-Dawn.A_memorix",
+    "repositoryUrl": "https://github.com/A-Dawn/A_memorix"
+  },
+  {
+    "id": "wentaoxian6-svg.MaiBot-rule_horror_plugin",
+    "repositoryUrl": "https://github.com/wentaoxian6-svg/MaiBot-rule_horror_plugin"
+  },
+  {
+    "id": "FoolOyster.mai-video-plugin",
+    "repositoryUrl": "https://github.com/FoolOyster/mai-video-plugin"
+  },
+  {
+    "id": "HyperSharkawa.msg_react_plugin",
+    "repositoryUrl": "https://github.com/HyperSharkawa/maibot-msg-react-plugin"
+  },
+  {
+    "id": "sansenjian.quick_date_perception",
+    "repositoryUrl": "https://github.com/sansenjian/quick-date-perception"
+  },
+  {
+    "id": "yueshenqiu.video_generator_plugin",
+    "repositoryUrl": "https://github.com/yueshenqiu/video_generator_plugin"
+  },
+  {
+    "id": "Rxiain.a1ctf_plugin",
+    "repositoryUrl": "https://github.com/Rxiain/a1ctf_plugin"
+  },
+  {
+    "id": "CharTyr.Mai-Soul-Engine",
+    "repositoryUrl": "https://github.com/CharTyr/Mai-Soul-Engine"
   }
 ]
+
+
