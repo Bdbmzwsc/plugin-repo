@@ -238,11 +238,6 @@ jobs:
               warnings.push(`版本号 \`${manifest.version}\` 不符合语义化版本格式 (如 \`1.0.0\`)`);
             }
             
-            // ID 与 manifest name 不一致
-            if (pluginId !== manifest.name) {
-              warnings.push(`插件 ID \`${pluginId}\` 与 manifest 中的 name \`${manifest.name}\` 不一致，建议保持一致`);
-            }
-            
             // ========== 验证成功 ==========
             let successMessage = `**插件信息:**\n| 字段 | 值 |\n|------|----|\n| 名称 | ${manifest.name} |\n| 版本 | ${manifest.version} |\n| 作者 | ${manifest.author.name} |\n| 许可证 | ${manifest.license} |\n| 描述 | ${manifest.description} |\n| 分支 | ${successBranch} |`;
             
