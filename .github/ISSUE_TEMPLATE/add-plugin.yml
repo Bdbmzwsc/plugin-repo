@@ -1,0 +1,60 @@
+name: "Add Plugin / 添加插件"
+description: "Submit a new plugin to the MaiBot Plugin Registry / 提交新插件到 MaiBot 插件中心"
+title: "[Plugin] "
+labels: ["plugin-submission", "pending-validation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 添加新插件 / Add New Plugin
+        
+        请填写以下信息，CI 将自动验证您的插件仓库。
+        验证通过后，仓库维护者会审核并批准您的提交。
+        
+        ---
+
+  - type: input
+    id: plugin-id
+    attributes:
+      label: 插件 ID / Plugin ID
+      description: |
+        格式：`GitHub用户名.插件仓库名` 或 `插件名称`
+        Format: `GitHubUsername.PluginRepoName` or `PluginName`
+      placeholder: "例如: username.my-awesome-plugin"
+    validations:
+      required: true
+
+  - type: input
+    id: repository-url
+    attributes:
+      label: 仓库地址 / Repository URL
+      description: |
+        必须是公开的 GitHub 仓库 HTTPS 地址
+        Must be a public GitHub repository HTTPS URL
+      placeholder: "https://github.com/username/plugin-repo"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 确认清单 / Checklist
+      description: 请确认以下所有事项 / Please confirm all items below
+      options:
+        - label: 我的仓库是公开的 / My repository is public
+          required: true
+        - label: 仓库根目录包含 `_manifest.json` 文件 / Repository contains `_manifest.json` in root
+          required: true
+        - label: manifest 包含所有必需字段 (name, version, author, license, host_application) / Manifest contains all required fields
+          required: true
+        - label: 仓库包含 LICENSE 文件 / Repository contains LICENSE file
+          required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 补充说明 / Additional Information
+      description: "可选: 关于插件的任何补充说明 / Optional: Any additional information about your plugin"
+      placeholder: "插件功能简介、特色功能等..."
+    validations:
+      required: false

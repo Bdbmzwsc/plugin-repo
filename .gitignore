@@ -11,7 +11,7 @@ yarn-error.log*
 # Environment variables
 .env
 .env.local
-
+AGENTS.md
 # IDEs and editors
 .idea
 .vscode/*

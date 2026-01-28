@@ -1,4 +1,5 @@
-name: Validate Plugin Submission
+name: Validate Plugin PR (Deprecated)
+
 on:
   pull_request:
     branches:
@@ -7,8 +8,57 @@ on:
       - 'plugins.json'
 
 jobs:
+  guide-to-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Guide user to Issue submission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prAuthor = context.payload.pull_request.user.login;
+            
+            const message = `## 📢 推荐使用 Issue 提交插件 / Please Use Issue Submission
+            
+            @${prAuthor} 您好！
+            
+            我们已经推出了更简单的 **Issue 提交方式**，无需 Fork 和创建 PR。
+            
+            ### 🚀 推荐流程
+            
+            1. 关闭此 PR
+            2. 点击 [创建 Issue](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/new/choose)
+            3. 选择 **"Add Plugin / 添加插件"** 模板
+            4. 填写插件 ID 和仓库地址
+            5. CI 自动验证，维护者批准后自动添加
+            
+            ### ✨ Issue 方式的优势
+            
+            | 特性 | PR 方式 | Issue 方式 |
+            |------|---------|------------|
+            | 需要 Fork | ✅ 需要 | ❌ 不需要 |
+            | 需要本地 Git | ✅ 需要 | ❌ 不需要 |
+            | 合并冲突 | 可能发生 | 不会发生 |
+            | 操作复杂度 | 较高 | 非常简单 |
+            
+            ---
+            
+            > ⚠️ **PR 提交方式已弃用**，后续可能会移除支持。
+            > 
+            > 如果您仍希望使用 PR 方式，此 PR 仍会进行验证，但建议改用 Issue。
+            `;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });
+
   validate:
     runs-on: ubuntu-latest
+    needs: guide-to-issue
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -25,6 +75,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Validate new plugin entry
         run: |
           node <<'EOL'
@@ -39,16 +90,13 @@ jobs:
               console.log(`主分支有 ${mainPlugins.length} 个插件`);
               console.log(`PR 分支有 ${prPlugins.length} 个插件`);
 
-              // Create sets for both repository URLs and plugin IDs for comprehensive comparison
               const mainRepoUrls = new Set(mainPlugins.map(p => p.repositoryUrl));
               const mainPluginIds = new Set(mainPlugins.map(p => p.id));
               
-              // Find plugins that are completely new (not in main branch)
               const newPlugins = prPlugins.filter(p => 
                 !mainRepoUrls.has(p.repositoryUrl) && !mainPluginIds.has(p.id)
               );
 
-              // Find modified plugins (same ID or URL but different content)
               const modifiedPlugins = prPlugins.filter(p => {
                 const mainPlugin = mainPlugins.find(mp => 
                   mp.repositoryUrl === p.repositoryUrl || mp.id === p.id
@@ -56,7 +104,6 @@ jobs:
                 return mainPlugin && JSON.stringify(mainPlugin) !== JSON.stringify(p);
               });
 
-              // Check if PR is missing plugins that exist in main (potential merge conflict indicator)
               const missingPlugins = mainPlugins.filter(mp => 
                 !prPlugins.some(p => p.repositoryUrl === mp.repositoryUrl || p.id === mp.id)
               );
@@ -64,7 +111,7 @@ jobs:
               if (missingPlugins.length > 0) {
                 console.warn(`⚠️  警告：PR 分支缺少主分支中存在的 ${missingPlugins.length} 个插件：`);
                 missingPlugins.forEach(p => console.warn(`  - ${p.id} (${p.repositoryUrl})`));
-                console.warn(`这表明 PR 分支可能已过时。建议对主分支进行变基操作。`);
+                console.warn(`这表明 PR 分支可能已过时。建议使用 Issue 方式提交，避免合并冲突。`);
               }
 
               if (newPlugins.length === 0 && modifiedPlugins.length === 0) {
@@ -72,7 +119,6 @@ jobs:
                 process.exit(0);
               }
 
-              // Check for conflicts: duplicate IDs or URLs within the PR
               const prRepoUrls = prPlugins.map(p => p.repositoryUrl);
               const prPluginIds = prPlugins.map(p => p.id);
               const duplicateUrls = prRepoUrls.filter((url, index) => prRepoUrls.indexOf(url) !== index);
@@ -85,12 +131,10 @@ jobs:
                 throw new Error(`在 PR 中发现重复的插件 ID：${duplicateIds.join(', ')}`);
               }
 
-              // Validate that only one new plugin is submitted per PR
               if (newPlugins.length > 1) {
-                throw new Error('错误：每个 Pull Request 只能提交一个新插件。');
+                throw new Error('错误：每个 Pull Request 只能提交一个新插件。建议使用 Issue 方式提交。');
               }
 
-              // Process new plugins
               let validationErrors = [];
               
               for (const plugin of newPlugins) {
@@ -107,7 +151,6 @@ jobs:
                 }
               }
 
-              // Process modified plugins
               for (const plugin of modifiedPlugins) {
                 try {
                   console.log(`\n=== 验证修改的插件：${plugin.id} ===`);
@@ -122,17 +165,16 @@ jobs:
                 }
               }
 
-              // Check if there were any validation errors
               if (validationErrors.length > 0) {
                 console.error(`\n❌ 发现 ${validationErrors.length} 个验证错误：`);
                 validationErrors.forEach((error, index) => {
                   console.error(`${index + 1}. ${error}`);
                 });
-                throw new Error(`插件验证失败，共 ${validationErrors.length} 个错误。请修复上述问题后重新提交。`);
+                throw new Error(`插件验证失败，共 ${validationErrors.length} 个错误。建议使用 Issue 方式提交以获得更好的反馈。`);
               }
 
-              const totalChanges = newPlugins.length + modifiedPlugins.length;
               console.log(`✅ 验证成功！处理了 ${newPlugins.length} 个新插件和 ${modifiedPlugins.length} 个修改的插件。`);
+              console.log(`\n💡 提示：建议改用 Issue 方式提交，操作更简单且不会有合并冲突。`);
             } catch (error) {
               console.error(`❌ 验证失败：${error.message}`);
               process.exit(1);
@@ -140,7 +182,6 @@ jobs:
           }
 
           function fetchManifest(repoUrl) {
-            // Try multiple common branch names
             const branches = ['main', 'master', 'dev', 'develop'];
             
             async function tryFetchFromBranch(branch) {
@@ -187,7 +228,6 @@ jobs:
               });
             }
 
-            // Try each branch until one succeeds
             return (async () => {
               const errors = [];
               
@@ -202,7 +242,6 @@ jobs:
                 }
               }
               
-              // If all branches failed, throw a comprehensive error
               throw new Error(`无法从任何分支获取 _manifest.json 文件。尝试的分支：${branches.join(', ')}。错误详情：\n${errors.map((err, i) => `${i + 1}. ${err}`).join('\n')}。\n\n请检查：\n1. 文件名是否为 '_manifest.json'（注意下划线）\n2. 仓库是否为公开仓库\n3. 文件是否存在于上述分支中\n仓库地址：${repoUrl}`);
             })();
           }
@@ -224,13 +263,11 @@ jobs:
                 throw new Error("_manifest.json 'host_application' 字段必须是一个包含 'min_version' 属性的对象。");
             }
 
-            // Validate version format (should be semantic versioning)
             const versionRegex = /^\d+\.\d+\.\d+/;
             if (!versionRegex.test(manifest.version)) {
               console.warn(`警告：插件版本 '${manifest.version}' 不符合语义化版本格式（如：1.0.0）`);
             }
 
-            // Validate that plugin ID in plugins.json matches manifest name/id
             if (plugin && plugin.id !== manifest.name) {
               console.warn(`警告：plugins.json 中的插件 ID '${plugin.id}' 与清单文件中的名称 '${manifest.name}' 不同。建议保持一致。`);
             }

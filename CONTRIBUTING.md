@@ -6,59 +6,168 @@
 
 在提交您的插件之前，请确保您的插件仓库满足以下**所有要求**：
 
-1.  **代码仓库公开**：您的插件必须是一个公开的 Git 仓库（推荐使用 GitHub）。
-2.  **`_manifest.json` 文件**：仓库的根目录下必须包含一个`_manifest.json`文件，且文件内容必须符合我们的规范。
-    -   必需字段：`manifest_version`, `name`, `version`, `description`, `author`, `license`, `host_application`。
-    -   `author` 必须是一个包含 `name` 和 `url` 的对象。
-    -   `host_application` 必须包含 `min_version` 字段。
+### 必需文件
 
-    **`_manifest.json`文件详解**：[链接](https://docs.mai-mai.org/develop/plugin_develop/manifest-guide.html#%F0%9F%93%8B-%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E)
+| 文件 | 要求 |
+|------|------|
+| `_manifest.json` | 仓库根目录，包含所有必需字段 |
+| `LICENSE` | 许可证类型应与 manifest 中 `license` 字段一致 |
+| `README.md` | 强烈建议包含功能介绍、使用说明和截图 |
+
+### _manifest.json 规范
+
+```json
+{
+  "manifest_version": "1.0.0",
+  "name": "插件名称",
+  "version": "1.0.0",
+  "description": "插件功能描述",
+  "author": {
+    "name": "作者名",
+    "url": "https://github.com/your-username"
+  },
+  "license": "MIT",
+  "host_application": {
+    "min_version": "1.0.0"
+  }
+}
+```
+
+**必需字段**：`manifest_version`, `name`, `version`, `description`, `author`, `license`, `host_application`
+
+> [!IMPORTANT]
+> - `author` 必须是包含 `name` 和 `url` 的**对象**，不能是字符串
+> - `host_application` 必须包含 `min_version` 字段
+
+> [!TIP]
+> 强烈建议添加 `repository_url` 字段，便于 WebUI 或其他第三方工具一键部署您的插件
+
+📖 **详细文档**：[_manifest.json 字段说明](https://docs.mai-mai.org/develop/plugin_develop/manifest-guide.html#%F0%9F%93%8B-%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E)
+
+---
+
+## 提交方式一：Issue 提交（推荐）✨
+
+这是最简单的方式，**无需 Fork、无需本地 Git 操作、无合并冲突**。
+
+### 步骤
+
+1. **创建 Issue**：点击 [New Issue](../../issues/new/choose)，选择 **"Add Plugin / 添加插件"** 模板
+
+2. **填写信息**：
+   - **插件 ID**：建议格式 `你的用户名.插件仓库名`
+   - **仓库地址**：完整的 GitHub HTTPS URL
+
+3. **等待验证**：CI 会自动验证您的插件仓库，结果会评论在 Issue 中
+
+4. **等待批准**：验证通过后，维护者会审核并使用 `/approve` 批准
+
+### 状态标签说明
+
+| 标签 | 含义 |
+|------|------|
+| `pending-validation` | 等待自动验证 |
+| `validated` | ✅ 验证通过，等待维护者批准 |
+| `validation-failed` | ❌ 验证失败，请根据提示修复 |
+| `approved` | 🎉 已批准并添加到插件中心 |
+| `rejected` | 🚫 被维护者拒绝 |
+
+### 可用命令
+
+| 命令 | 谁可以使用 | 说明 |
+|------|-----------|------|
+| `/recheck` | Issue 作者、维护者 | 重新触发验证（修改 manifest 后使用） |
+| `/approve` | 仅维护者 | 批准并添加插件 |
+| `/reject 原因` | 仅维护者 | 拒绝插件并说明原因 |
+
+### 验证失败怎么办？
+
+1. 根据 Issue 中的错误提示修改您的插件仓库
+2. 修改完成后，在 Issue 中评论 `/recheck`
+3. CI 会重新验证，结果会再次评论在 Issue 中
+
+---
+
+## 提交方式二：PR 提交（已弃用）
+
+> [!WARNING]
+> **此方式已弃用**，建议使用上述 Issue 方式。
+> 
+> PR 方式存在以下问题：
+> - 需要 Fork 仓库和本地 Git 操作
+> - 多人同时提交时容易产生合并冲突
+> - 操作流程复杂
+
+如果您仍希望使用 PR 方式：
+
+1. **Fork 本仓库**
+2. **Clone 并创建分支**：
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/plugin-repo.git
+   cd plugin-repo
+   git checkout -b add/your-plugin-name
+   ```
+3. **编辑 `plugins.json`**，在数组**末尾**添加：
+   ```json
+   {
+     "id": "your-username.your-plugin-name",
+     "repositoryUrl": "https://github.com/YOUR-USERNAME/YOUR-PLUGIN-REPO"
+   }
+   ```
+4. **提交并推送**：
+   ```bash
+   git add plugins.json
+   git commit -m "feat: Add [Your Plugin Name] plugin"
+   git push origin add/your-plugin-name
+   ```
+5. **创建 Pull Request**
 
 > [!NOTE]
-> 虽然manifest文件不强制要求必须填写repository_url: 源码仓库地址，但是我们强烈建议您填写这个字段，有助于WebUI或其他第三方自动化软件一键部署您的插件
+> PR 创建后会收到引导消息，建议您改用 Issue 方式提交。
 
-4.  **`LICENSE` 文件**：仓库根目录下必须包含一个`LICENSE`文件，其许可证类型应与`_manifest.json`中`license`字段的值一致。
-5.  **优秀的 `README.md`**：我们强烈建议您的`README.md`文件包含清晰的功能介绍、使用说明以及至少一张截图或GIF动图。
+---
 
-## 提交步骤
+## 常见问题
 
-1.  **Fork 本仓库**：点击本仓库页面右上角的 **"Fork"** 按钮，将 `MaiM-with-u/plugin-repo` 仓库复刻到您自己的 GitHub 账户下。
+### 验证错误：无法获取 _manifest.json
 
-2.  **Clone 您的 Fork**：将您复刻的仓库克隆到您的本地电脑。
-    ```bash
-    git clone https://github.com/YOUR-USERNAME/plugin-repo.git
-    cd plugin-repo
-    ```
-    *(请将 `YOUR-USERNAME` 替换为您自己的 GitHub 用户名)*
+**可能原因**：
+- 文件名错误（必须是 `_manifest.json`，注意下划线）
+- 仓库不是公开的
+- 文件不在 main/master/dev/develop 分支的根目录
 
-3.  **创建新分支**：为您的提交创建一个清晰的新分支。
-    ```bash
-    git checkout -b add/your-plugin-name
-    ```
+### 验证错误：author 字段格式错误
 
-4.  **添加您的插件信息**：打开`plugins.json`文件，在数组的**末尾**添加一个指向您插件的新对象。
-    ```json
-    // plugins.json
-    [
-      // ... 其他已有的插件
-      {
-        "id": "your-github-username.your-plugin-repo-name",
-        "repositoryUrl": "https://github.com/YOUR-USERNAME/YOUR-PLUGIN-REPO"
-      }
-    ]
-    ```
-    注意！！`plugin_details.json`为程序自动生成的文件，请**不要手动修改**。请确保您的插件信息格式正确，特别是逗号的使用。
+**正确格式**：
+```json
+"author": {
+  "name": "作者名",
+  "url": "https://github.com/username"
+}
+```
 
-5.  **提交并推送更改**：
-    ```bash
-    git add plugins.json
-    git commit -m "feat: Add [Your Plugin Name] plugin"
-    git push origin add/your-plugin-name
-    ```
+**错误格式**：
+```json
+"author": "作者名"  // ❌ 不能是字符串
+```
 
-6.  **创建 Pull Request**：
-    -   回到您在 GitHub 上的 Fork 仓库页面，点击 **"Compare & pull request"** 按钮。
-    -   系统会自动使用模板填充 PR 描述，请**仔细阅读并填写模板中的所有内容**。
-    -   确认无误后，点击 **"Create pull request"**。
+### 插件 ID 格式要求
 
-提交后，我们的自动化系统会立即对您的 PR 进行检查。如果检查失败，请根据错误提示修改后再次提交。维护者审核通过后，您的插件就会正式加入麦麦（MaiBot）插件大家庭！
+- ✅ `username.my-plugin`
+- ✅ `my_plugin_name`
+- ❌ `My Plugin`（不能有空格）
+- ❌ `../path`（不能有路径字符）
+
+### 仓库 URL 格式要求
+
+- ✅ `https://github.com/username/repo-name`
+- ❌ `https://github.com/username/repo-name.git`
+- ❌ `git@github.com:username/repo-name.git`
+
+---
+
+## 需要帮助？
+
+如果您在提交过程中遇到任何问题，可以在 Issue 中描述您的问题，我们会尽快回复
+
+感谢您对麦麦（MaiBot）生态的贡献！🎉

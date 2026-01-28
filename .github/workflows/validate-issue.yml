@@ -1,0 +1,309 @@
+name: Validate Plugin Issue
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+  issue_comment:
+    types: [created]
+
+jobs:
+  validate:
+    # 触发条件：
+    # 1. Issue 创建/编辑且有 plugin-submission 标签
+    # 2. 评论包含 /recheck 命令
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'plugin-submission')) ||
+      (github.event_name == 'issue_comment' && 
+       contains(github.event.issue.labels.*.name, 'plugin-submission') &&
+       contains(github.event.comment.body, '/recheck'))
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    
+    steps:
+      - name: Check recheck permission
+        if: github.event_name == 'issue_comment'
+        id: check-recheck-permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commenter = context.payload.comment.user.login;
+            const issueAuthor = context.payload.issue.user.login;
+            
+            // Issue 作者可以 /recheck
+            if (commenter === issueAuthor) {
+              console.log(`✅ @${commenter} 是 Issue 作者，允许重新验证`);
+              return;
+            }
+            
+            // 检查是否是维护者 (admin/write)
+            try {
+              const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: commenter
+              });
+              
+              const allowedPermissions = ['admin', 'write'];
+              if (allowedPermissions.includes(permission.permission)) {
+                console.log(`✅ @${commenter} 是维护者 (${permission.permission})，允许重新验证`);
+                return;
+              }
+            } catch (e) {
+              // 不是协作者
+            }
+            
+            // 无权限，添加评论并退出
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `⚠️ @${commenter} 只有 **Issue 作者** 或 **仓库维护者** 可以使用 \`/recheck\` 命令。`
+            });
+            
+            core.setFailed(`用户 @${commenter} 没有权限使用 /recheck`);
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Parse and Validate Plugin
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const https = require('https');
+            const fs = require('fs');
+            
+            // ========== 解析 Issue 内容 ==========
+            const body = context.payload.issue.body;
+            console.log('Issue body:', body);
+            
+            const pluginIdMatch = body.match(/### 插件 ID \/ Plugin ID\s*\n\s*\n(.+)/);
+            const repoUrlMatch = body.match(/### 仓库地址 \/ Repository URL\s*\n\s*\n(.+)/);
+            
+            if (!pluginIdMatch || !repoUrlMatch) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', '无法解析 Issue 内容，请使用 Issue 模板提交。\n\n请确保填写了「插件 ID」和「仓库地址」字段。');
+              return;
+            }
+            
+            const pluginId = pluginIdMatch[1].trim();
+            const repoUrl = repoUrlMatch[1].trim();
+            
+            console.log(`Plugin ID: ${pluginId}`);
+            console.log(`Repository URL: ${repoUrl}`);
+            
+            // 保存解析结果供后续使用
+            core.setOutput('plugin_id', pluginId);
+            core.setOutput('repo_url', repoUrl);
+            
+            // ========== 验证 URL 格式 ==========
+            const urlPattern = /^https:\/\/github\.com\/[\w-]+\/[\w.-]+$/;
+            if (!urlPattern.test(repoUrl)) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**无效的仓库 URL 格式**\n\n提供的 URL: \`${repoUrl}\`\n\n要求格式: \`https://github.com/username/repo-name\`\n\n❌ 不要包含 \`.git\` 后缀\n❌ 不要使用 SSH 地址`);
+              return;
+            }
+            
+            // ========== 验证插件 ID 格式 ==========
+            const idPattern = /^[\w.-]+$/;
+            if (!idPattern.test(pluginId)) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**无效的插件 ID 格式**\n\n提供的 ID: \`${pluginId}\`\n\n只允许：字母、数字、下划线 \`_\`、点 \`.\` 和连字符 \`-\``);
+              return;
+            }
+            
+            // ========== 检查重复 ==========
+            const plugins = JSON.parse(fs.readFileSync('plugins.json', 'utf8'));
+            
+            const duplicateId = plugins.find(p => p.id === pluginId);
+            if (duplicateId) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**插件 ID 已存在**\n\n\`${pluginId}\` 已被注册。\n\n请使用不同的 ID，建议格式：\`您的用户名.插件名\``);
+              return;
+            }
+            
+            const duplicateUrl = plugins.find(p => p.repositoryUrl === repoUrl);
+            if (duplicateUrl) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**仓库 URL 已存在**\n\n${repoUrl}\n\n该仓库已被注册为插件 \`${duplicateUrl.id}\``);
+              return;
+            }
+            
+            // ========== 获取 Manifest ==========
+            const branches = ['main', 'master', 'dev', 'develop'];
+            let manifest = null;
+            let successBranch = null;
+            const fetchErrors = [];
+            
+            async function fetchFromBranch(branch) {
+              const rawUrl = repoUrl.replace('github.com', 'raw.githubusercontent.com') + `/refs/heads/${branch}/_manifest.json`;
+              console.log(`尝试从 ${branch} 分支获取: ${rawUrl}`);
+              
+              return new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => {
+                  reject(new Error('请求超时 (10秒)'));
+                }, 10000);
+                
+                const req = https.get(rawUrl, res => {
+                  clearTimeout(timeout);
+                  
+                  if (res.statusCode !== 200) {
+                    reject(new Error(`HTTP ${res.statusCode}`));
+                    return;
+                  }
+                  
+                  let data = '';
+                  res.on('data', chunk => data += chunk);
+                  res.on('end', () => {
+                    try {
+                      resolve(JSON.parse(data));
+                    } catch (e) {
+                      reject(new Error('JSON 解析失败 - 请检查文件格式'));
+                    }
+                  });
+                });
+                
+                req.on('error', err => {
+                  clearTimeout(timeout);
+                  reject(new Error(`网络错误: ${err.message}`));
+                });
+              });
+            }
+            
+            for (const branch of branches) {
+              try {
+                manifest = await fetchFromBranch(branch);
+                successBranch = branch;
+                console.log(`✅ 成功从 ${branch} 分支获取到清单文件`);
+                break;
+              } catch (e) {
+                fetchErrors.push(`- \`${branch}\`: ${e.message}`);
+                console.log(`❌ ${branch} 分支获取失败: ${e.message}`);
+              }
+            }
+            
+            if (!manifest) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**无法获取 \`_manifest.json\` 文件**\n\n尝试的分支:\n${fetchErrors.join('\n')}\n\n**请检查:**\n1. 文件名是否为 \`_manifest.json\`（注意下划线）\n2. 仓库是否为**公开**仓库\n3. 文件是否在上述分支的根目录中`);
+              return;
+            }
+            
+            // ========== 验证 Manifest 结构 ==========
+            const warnings = [];
+            
+            // 检查空或无效
+            if (!manifest || typeof manifest !== 'object') {
+              core.setOutput('status', 'error');
+              core.setOutput('message', '`_manifest.json` 文件为空或格式无效');
+              return;
+            }
+            
+            // 检查必需字段
+            const requiredFields = ['manifest_version', 'name', 'version', 'description', 'author', 'license', 'host_application'];
+            const missingFields = requiredFields.filter(f => !manifest[f]);
+            
+            if (missingFields.length > 0) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', `**\`_manifest.json\` 缺少必需字段**\n\n缺少: ${missingFields.map(f => '\`' + f + '\`').join(', ')}\n\n请参考 [Manifest 文档](https://docs.mai-mai.org/develop/plugin_develop/manifest-guide.html) 添加这些字段。`);
+              return;
+            }
+            
+            // 验证 author 结构
+            if (typeof manifest.author !== 'object' || !manifest.author.name || !manifest.author.url) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', '**\`author\` 字段格式错误**\n\n必须是包含 `name` 和 `url` 的对象:\n```json\n"author": {\n  "name": "作者名",\n  "url": "https://github.com/username"\n}\n```');
+              return;
+            }
+            
+            // 验证 host_application 结构
+            if (typeof manifest.host_application !== 'object' || !manifest.host_application.min_version) {
+              core.setOutput('status', 'error');
+              core.setOutput('message', '**\`host_application\` 字段格式错误**\n\n必须包含 `min_version` 属性:\n```json\n"host_application": {\n  "min_version": "1.0.0"\n}\n```');
+              return;
+            }
+            
+            // ========== 警告检查（不阻止提交）==========
+            
+            // 版本号格式
+            const versionRegex = /^\d+\.\d+\.\d+/;
+            if (!versionRegex.test(manifest.version)) {
+              warnings.push(`版本号 \`${manifest.version}\` 不符合语义化版本格式 (如 \`1.0.0\`)`);
+            }
+            
+            // ID 与 manifest name 不一致
+            if (pluginId !== manifest.name) {
+              warnings.push(`插件 ID \`${pluginId}\` 与 manifest 中的 name \`${manifest.name}\` 不一致，建议保持一致`);
+            }
+            
+            // ========== 验证成功 ==========
+            let successMessage = `**插件信息:**\n| 字段 | 值 |\n|------|----|\n| 名称 | ${manifest.name} |\n| 版本 | ${manifest.version} |\n| 作者 | ${manifest.author.name} |\n| 许可证 | ${manifest.license} |\n| 描述 | ${manifest.description} |\n| 分支 | ${successBranch} |`;
+            
+            if (warnings.length > 0) {
+              successMessage += `\n\n**⚠️ 警告 (不影响提交):**\n${warnings.map(w => '- ' + w).join('\n')}`;
+            }
+            
+            successMessage += `\n\n---\n\n**维护者操作:**\n- \`/approve\` - 批准并添加此插件\n- \`/reject 原因\` - 拒绝此插件\n\n**提交者操作:**\n- 如果修改了 manifest，可以评论 \`/recheck\` 重新验证`;
+            
+            core.setOutput('status', 'success');
+            core.setOutput('message', successMessage);
+            core.setOutput('manifest_name', manifest.name);
+            core.setOutput('manifest_version', manifest.version);
+            core.setOutput('manifest_author', manifest.author.name);
+            core.setOutput('manifest_license', manifest.license);
+
+      - name: Remove old status labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.issue.labels.map(l => l.name);
+            const statusLabels = ['validated', 'validation-failed', 'pending-validation'];
+            
+            for (const label of statusLabels) {
+              if (labels.includes(label)) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    name: label
+                  });
+                } catch (e) {
+                  // Label might not exist, ignore
+                }
+              }
+            }
+
+      - name: Add status label and comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ steps.validate.outputs.status }}';
+            const message = String.raw`${{ steps.validate.outputs.message }}`;
+            const isRecheck = '${{ github.event_name }}' === 'issue_comment';
+            
+            // 确定标签
+            const label = status === 'success' ? 'validated' : 'validation-failed';
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: [label]
+            });
+            
+            // 构建评论
+            const emoji = status === 'success' ? '✅' : '❌';
+            const title = status === 'success' ? '验证通过 / Validation Passed' : '验证失败 / Validation Failed';
+            const recheckNote = isRecheck ? '\n\n> 🔄 此为重新验证结果' : '';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## ${emoji} ${title}${recheckNote}\n\n${message}`
+            });

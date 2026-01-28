@@ -1,0 +1,221 @@
+name: Approve or Reject Plugin
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  approve:
+    if: |
+      contains(github.event.issue.labels.*.name, 'plugin-submission') &&
+      contains(github.event.issue.labels.*.name, 'validated') &&
+      contains(github.event.comment.body, '/approve')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    
+    steps:
+      - name: Check maintainer permission
+        id: check-permission
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commenter = context.payload.comment.user.login;
+            
+            const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: commenter
+            });
+            
+            const allowedPermissions = ['admin', 'write'];
+            if (!allowedPermissions.includes(permission.permission)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `⚠️ @${commenter} 只有 **仓库维护者** (admin/write) 可以使用 \`/approve\` 命令。`
+              });
+              core.setFailed(`用户 @${commenter} 没有权限批准插件`);
+              return;
+            }
+            
+            console.log(`✅ @${commenter} (${permission.permission}) 执行 /approve`);
+            core.setOutput('approved_by', commenter);
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse issue and add plugin
+        id: add-plugin
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            const body = context.payload.issue.body;
+            const pluginIdMatch = body.match(/### 插件 ID \/ Plugin ID\s*\n\s*\n(.+)/);
+            const repoUrlMatch = body.match(/### 仓库地址 \/ Repository URL\s*\n\s*\n(.+)/);
+            
+            if (!pluginIdMatch || !repoUrlMatch) {
+              core.setFailed('无法解析 Issue 内容');
+              return;
+            }
+            
+            const pluginId = pluginIdMatch[1].trim();
+            const repoUrl = repoUrlMatch[1].trim();
+            
+            const plugins = JSON.parse(fs.readFileSync('plugins.json', 'utf8'));
+            
+            if (plugins.some(p => p.id === pluginId)) {
+              core.setFailed(`插件 ID 已存在: ${pluginId}`);
+              return;
+            }
+            if (plugins.some(p => p.repositoryUrl === repoUrl)) {
+              core.setFailed(`仓库 URL 已存在: ${repoUrl}`);
+              return;
+            }
+            
+            plugins.push({
+              id: pluginId,
+              repositoryUrl: repoUrl
+            });
+            
+            fs.writeFileSync('plugins.json', JSON.stringify(plugins, null, 2) + '\n');
+            
+            core.setOutput('plugin_id', pluginId);
+            core.setOutput('repo_url', repoUrl);
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add plugins.json
+          git commit -m "feat: Add ${{ steps.add-plugin.outputs.plugin_id }} plugin (via #${{ github.event.issue.number }})"
+          git push
+
+      - name: Close issue with success
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pluginId = '${{ steps.add-plugin.outputs.plugin_id }}';
+            const approvedBy = '${{ steps.check-permission.outputs.approved_by }}';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🎉 插件已添加 / Plugin Added\n\n插件 \`${pluginId}\` 已成功添加到插件中心！\n\n| 信息 | 值 |\n|------|----|\n| 批准人 | @${approvedBy} |\n| 关联 Issue | #${context.issue.number} |\n\n插件详情将在下次自动更新后显示在 [插件展示页](https://plugins.maibot.chat/)\n\n感谢您的贡献！ / Thank you for your contribution!`
+            });
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['approved']
+            });
+            
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });
+
+      - name: Handle approve failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## ❌ 添加失败 / Addition Failed\n\n插件添加过程中发生错误。\n\n请检查 [工作流日志](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) 获取详细信息。`
+            });
+
+  reject:
+    if: |
+      contains(github.event.issue.labels.*.name, 'plugin-submission') &&
+      startsWith(github.event.comment.body, '/reject')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    
+    steps:
+      - name: Check maintainer permission and reject
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commenter = context.payload.comment.user.login;
+            const commentBody = context.payload.comment.body;
+            
+            // 检查权限
+            const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: commenter
+            });
+            
+            const allowedPermissions = ['admin', 'write'];
+            if (!allowedPermissions.includes(permission.permission)) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `⚠️ @${commenter} 只有 **仓库维护者** (admin/write) 可以使用 \`/reject\` 命令。`
+              });
+              core.setFailed(`用户 @${commenter} 没有权限拒绝插件`);
+              return;
+            }
+            
+            // 解析拒绝原因
+            const reasonMatch = commentBody.match(/^\/reject\s*([\s\S]*)/);
+            let reason = reasonMatch && reasonMatch[1].trim();
+            
+            if (!reason) {
+              reason = '未提供具体原因';
+            }
+            
+            console.log(`@${commenter} 拒绝插件，原因: ${reason}`);
+            
+            // 添加拒绝评论
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🚫 插件被拒绝 / Plugin Rejected\n\n此插件提交已被维护者拒绝。\n\n| 信息 | 值 |\n|------|----|\n| 拒绝人 | @${commenter} |\n| 原因 | ${reason} |\n\n如有疑问，请联系仓库维护者。\n\n---\n\n*如果您已修改插件以符合要求，可以创建新的 Issue 重新提交。*`
+            });
+            
+            // 移除验证相关标签，添加 rejected 标签
+            const labelsToRemove = ['validated', 'validation-failed', 'pending-validation'];
+            for (const label of labelsToRemove) {
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  name: label
+                });
+              } catch (e) {
+                // 标签不存在，忽略
+              }
+            }
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['rejected']
+            });
+            
+            // 关闭 Issue
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });
