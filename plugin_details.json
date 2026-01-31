@@ -1799,7 +1799,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "麦麦发 B 站视频",
-      "version": "1.3.2",
+      "version": "1.3.3",
       "description": "让麦麦解析 B 站视频链接并发送，群聊私聊都可用",
       "author": {
         "name": "XinxInxiN0",
@@ -6143,7 +6143,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "A_Memorix",
-      "version": "0.2.0",
+      "version": "0.2.3",
       "description": "轻量级知识库插件 - 基于双路检索的完全独立的记忆增强系统，优化低资源环境下的知识存储与检索",
       "author": {
         "name": "A_Dawn"
@@ -6176,7 +6176,7 @@
         "embedding": {
           "dimension": {
             "type": "integer",
-            "default": 384,
+            "default": 1024,
             "description": "嵌入向量维度"
           },
           "quantization_type": {
@@ -6203,6 +6203,24 @@
             "type": "string",
             "default": "auto",
             "description": "指定嵌入模型名称 (对应 model_config.toml 中的 name)"
+          },
+          "retry": {
+            "type": "object",
+            "properties": {
+              "max_attempts": {
+                "type": "integer",
+                "default": 5
+              },
+              "max_wait_seconds": {
+                "type": "integer",
+                "default": 30
+              },
+              "min_wait_seconds": {
+                "type": "integer",
+                "default": 2
+              }
+            },
+            "description": "嵌入重试配置"
           }
         },
         "retrieval": {
@@ -6418,7 +6436,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "规则怪谈插件",
-      "version": "1.5",
+      "version": "2.1.0",
       "description": "生成规则怪谈并进行互动游戏，支持LLM生成、提示、推理和多种结局判定",
       "author": {
         "name": "岚影鸿夜",
@@ -6763,7 +6781,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "TRPG骰娘插件",
-      "version": "1.0.6",
+      "version": "1.1.3",
       "description": "来场紧张刺激的TRPG吧！",
       "author": {
         "name": "WaterInk",
@@ -6792,7 +6810,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "麦麦消息过滤插件",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "拦截/替换bot发出的消息，防止bot发出你不想让bot发出的信息。允许用户使用正则表达式自定义过滤规则，对匹配命中的消息可选择拦截/替换两种处理方式。支持概率设定。",
       "author": {
         "name": "鲨鱼",
