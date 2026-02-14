@@ -1624,41 +1624,6 @@
     }
   },
   {
-    "id": "Mettafy.timed_greeting_plugin",
-    "manifest": {
-      "manifest_version": 1,
-      "name": "定时问候插件",
-      "version": "0.2.0",
-      "description": "在指定时间段内，根据关键词向指定用户或群组发送由LLM生成的语句。",
-      "author": {
-        "name": "Mettafy",
-        "url": "https://github.com/Mettafy"
-      },
-      "license": "AGPL-v3.0",
-      "host_application": {
-        "min_version": "0.9.1",
-        "max_version": "0.9.1"
-      },
-      "keywords": [
-        "定时",
-        "问候",
-        "早安晚安",
-        "提醒",
-        "scheduled",
-        "greeting"
-      ],
-      "categories": [
-        "工具",
-        "提醒",
-        "Tools",
-        "Reminder"
-      ],
-      "repository_url": "https://github.com/Mettafy/timed_greeting_plugin",
-      "default_locale": "zh-CN",
-      "locales_path": "_locales"
-    }
-  },
-  {
     "id": "SteamedbunsMC.SomeUtils",
     "manifest": {
       "manifest_version": 0.1,
@@ -2862,7 +2827,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "光遇查询插件",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "description": "光遇工具(sky_tools_plugin)",
       "author": {
         "name": "寻",
@@ -2940,9 +2905,15 @@
             "type": "command",
             "name": "skytest",
             "description": "检测光遇服务器状态"
+          },
+          {
+            "type": "command",
+            "name": "all",
+            "description": "一次性获取所有日常信息"
           }
         ]
-      }
+      },
+      "id": "寻.sky_tools_plugin"
     }
   },
   {
@@ -6911,7 +6882,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "麦麦消息过滤插件",
-      "version": "1.1.1",
+      "version": "1.2.2",
       "description": "拦截/替换bot发出的消息，防止bot发出你不想让bot发出的信息。允许用户使用正则表达式自定义过滤规则，对匹配命中的消息可选择拦截/替换两种处理方式。支持概率设定。",
       "author": {
         "name": "鲨鱼",
@@ -7236,6 +7207,125 @@
       ],
       "default_locale": "CN",
       "locales_path": "_locales"
+    }
+  },
+  {
+    "id": "XXXxx7258.leave_delete_guard_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "Leave Delete Guard Plugin",
+      "version": "0.1.0",
+      "description": "高风险的主动退群插件：由 Planner 或 /ldg 在严格策略下执行退群/删好友。",
+      "author": {
+        "name": "晴空",
+        "url": "https://github.com/XXXxx7258"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.11.6"
+      },
+      "homepage_url": "https://github.com/XXXxx7258/leave_delete_guard_plugin",
+      "repository_url": "https://github.com/XXXxx7258/leave_delete_guard_plugin",
+      "keywords": [
+        "risk-control",
+        "planner",
+        "napcat",
+        "group-leave",
+        "friend-delete"
+      ],
+      "categories": [
+        "安全",
+        "自动化"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "components": [],
+        "features": [
+          "Planner 高风险动作护栏",
+          "开发者命令 /ldg 调试入口",
+          "支持 dry-run 运行时开关",
+          "严格限制当前上下文目标"
+        ]
+      },
+      "id": "XXXxx7258.leave_delete_guard_plugin"
+    }
+  },
+  {
+    "id": "cakezhcn.Mai_tsonline",
+    "manifest": {
+      "manifest_version": 1,
+      "name": "teamspeak_plugin",
+      "version": "1.0.0",
+      "description": "查询teamspeak3服务器信息的插件。",
+      "author": {
+        "name": "cakezhcn",
+        "url": "https://github.com/cakezhcn"
+      },
+      "license": "MIT",
+      "host_application": {
+        "min_version": "0.12.2",
+        "max_version": "0.12.2"
+      },
+      "homepage_url": "https://github.com/cakezhcn/Mai_tsonline",
+      "repository_url": "https://github.com/cakezhcn/Mai_tsonline",
+      "categories": [
+        "Utility Tools"
+      ]
+    }
+  },
+  {
+    "id": "Eric-Termina.llm_message_guard_plugin",
+    "manifest": {
+      "manifest_version": 1,
+      "id": "Eric.llm_message_guard_plugin",
+      "name": "LLM结构化消息守卫插件(试验性)",
+      "version": "1.0.0",
+      "description": "试验新的LLM消息发送方式，观察结构化messages发送在实际聊天中的效果是否更好。",
+      "author": {
+        "name": "Eric-Terminal",
+        "url": "https://github.com/Eric-Terminal"
+      },
+      "license": "GPL-v3.0-or-later",
+      "host_application": {
+        "min_version": "0.12.0"
+      },
+      "homepage_url": "https://github.com/MaiM-with-u/maibot",
+      "repository_url": "https://github.com/MaiM-with-u/maibot",
+      "keywords": [
+        "llm",
+        "security",
+        "prompt",
+        "message-factory",
+        "replyer"
+      ],
+      "categories": [
+        "Security",
+        "LLM"
+      ],
+      "default_locale": "zh-CN",
+      "plugin_info": {
+        "is_built_in": false,
+        "plugin_type": "runtime_patch",
+        "components": [
+          {
+            "type": "event_handler",
+            "name": "llm_message_guard_on_start",
+            "description": "启动时应用replyer运行时补丁"
+          },
+          {
+            "type": "event_handler",
+            "name": "llm_message_guard_on_stop",
+            "description": "停止时恢复replyer原始方法"
+          }
+        ],
+        "features": [
+          "结构化messages请求",
+          "真实身份判定assistant角色",
+          "相邻同人同角色消息合并",
+          "失败自动回退原始调用"
+        ]
+      }
     }
   }
 ]
