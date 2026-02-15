@@ -69,7 +69,7 @@ jobs:
             const currentPluginIdMatch = body.match(/### 当前插件 ID \/ Current Plugin ID\s*\n\s*\n(.+)/);
             const newPluginIdMatch = body.match(/### 新插件 ID \/ New Plugin ID\s*\n\s*\n(.+)/);
             const addRepoUrlMatch = body.match(/### 仓库地址 \/ Repository URL\s*\n\s*\n(.+)/);
-            const modifyRepoUrlMatch = body.match(/### 新的仓库地址 \/ New Repository URL\s*\n\s*\n(.+)/);
+            const modifyRepoUrlMatch = body.match(/### 新的仓库地址(?:（可选）)? \/ New Repository URL(?: \(Optional\))?\s*\n\s*\n(.+)/);
             
             if (requestType === 'modify') {
               if (!currentPluginIdMatch || !newPluginIdMatch) {
