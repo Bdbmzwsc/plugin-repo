@@ -926,107 +926,6 @@
     }
   },
   {
-    "id": "ikun-11451.bing_daily_image_plugin",
-    "manifest": {
-      "manifest_version": 1,
-      "name": "bing_daily_image_plugin",
-      "version": "1.0.0",
-      "description": "获取微软Bing每日精选图片并显示相关信息",
-      "author": {
-        "name": "全民制作人：ikun两年半",
-        "url": "https://github.com/ikun-11451"
-      },
-      "homepage_url": "https://github.com/ikun-11451/bing_daily_image_plugin",
-      "repository_url": "https://github.com/ikun-11451/bing_daily_image_plugin",
-      "license": "GPL-3.0",
-      "host_application": {
-        "min_version": "0.8.0",
-        "max_version": "0.8.0"
-      },
-      "keywords": [
-        "bing",
-        "壁纸",
-        "图片",
-        "每日一图"
-      ],
-      "categories": [
-        "图片",
-        "资讯",
-        "工具"
-      ],
-      "config_file_name": "config.toml",
-      "config_section_descriptions": {
-        "plugin": "插件基本配置",
-        "components": "组件启用控制",
-        "api": "API相关配置",
-        "image": "图片处理配置"
-      },
-      "config_schema": {
-        "plugin": {
-          "config_version": {
-            "type": "str",
-            "default": "1.0.0",
-            "description": "配置文件版本号"
-          }
-        },
-        "components": {
-          "enable_bing_image": {
-            "type": "bool",
-            "default": true,
-            "description": "启用Bing每日一图功能"
-          }
-        },
-        "api": {
-          "resolution": {
-            "type": "str",
-            "default": "1920",
-            "description": "图片分辨率",
-            "choices": [
-              "1366",
-              "1920",
-              "3840",
-              "UHD"
-            ]
-          },
-          "language": {
-            "type": "str",
-            "default": "zh-CN",
-            "description": "语言区域",
-            "choices": [
-              "zh-CN",
-              "en-US",
-              "ja-JP",
-              "en-AU",
-              "en-GB",
-              "de-DE",
-              "en-NZ",
-              "en-CA",
-              "en-IN",
-              "fr-FR",
-              "fr-CA",
-              "it-IT",
-              "es-ES",
-              "pt-BR",
-              "en-ROW"
-            ]
-          }
-        },
-        "image": {
-          "compress_image": {
-            "type": "bool",
-            "default": true,
-            "description": "是否压缩大尺寸图片"
-          },
-          "max_image_size": {
-            "type": "int",
-            "default": 2097152,
-            "description": "图片最大字节数(默认2MB)"
-          }
-        }
-      }
-    }
-  },
-  {
     "id": "XXXxx7258.url_summary_plugin",
     "manifest": {
       "manifest_version": 1,
@@ -1131,14 +1030,14 @@
       "description": "智能多模型图片生成插件，支持文生图和图生图自动识别。兼容OpenAI、OpenAI-Chat、豆包、Gemini、魔搭等多种API格式。提供命令式风格转换、模型配置管理、结果缓存、自拍负面提示词、独立生图接口等功能。支持动态模型切换、风格别名、调试开关等高级特性。",
       "author": {
         "name": "Ptrel，Rabbit-Jia-Er，saberlights Kiuon",
-        "url": "https://github.com/1021143806/mais-art-journal"
+        "url": "https://github.com/1021143806/mais_art_journal"
       },
       "license": "GPL-v3.0-or-later",
       "host_application": {
         "min_version": "0.10.0"
       },
-      "homepage_url": "https://github.com/1021143806/mais-art-journal",
-      "repository_url": "https://github.com/1021143806/mais-art-journal",
+      "homepage_url": "https://github.com/1021143806/mais_art_journal",
+      "repository_url": "https://github.com/1021143806/mais_art_journal",
       "keywords": [
         "draw",
         "Expression",
@@ -1205,7 +1104,7 @@
           "独立生图接口(generate_image_standalone)"
         ]
       },
-      "id": "Ptrel，Rabbit-Jia-Er.mais_art_journal"
+      "id": "mais_art_journal"
     }
   },
   {
@@ -6119,7 +6018,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "A_Memorix",
-      "version": "0.3.3",
+      "version": "0.4.0",
       "description": "轻量级知识库插件 - 基于双路检索的完全独立的记忆增强系统，优化低资源环境下的知识存储与检索",
       "author": {
         "name": "A_Dawn"
@@ -6244,6 +6143,152 @@
             "type": "number",
             "default": 0.3,
             "description": "关系语义回退的最小相似度阈值"
+          },
+          "temporal": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "default": true
+              },
+              "allow_created_fallback": {
+                "type": "boolean",
+                "default": true
+              },
+              "candidate_multiplier": {
+                "type": "integer",
+                "default": 8
+              },
+              "default_top_k": {
+                "type": "integer",
+                "default": 10
+              },
+              "max_scan": {
+                "type": "integer",
+                "default": 1000
+              }
+            },
+            "description": "时序检索配置"
+          },
+          "sparse": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean",
+                "default": true
+              },
+              "backend": {
+                "type": "string",
+                "default": "fts5",
+                "enum": [
+                  "fts5"
+                ]
+              },
+              "lazy_load": {
+                "type": "boolean",
+                "default": true
+              },
+              "mode": {
+                "type": "string",
+                "default": "auto",
+                "enum": [
+                  "auto",
+                  "fallback_only",
+                  "hybrid"
+                ]
+              },
+              "tokenizer_mode": {
+                "type": "string",
+                "default": "jieba",
+                "enum": [
+                  "jieba",
+                  "mixed",
+                  "char_2gram"
+                ]
+              },
+              "jieba_user_dict": {
+                "type": "string",
+                "default": ""
+              },
+              "char_ngram_n": {
+                "type": "integer",
+                "default": 2
+              },
+              "candidate_k": {
+                "type": "integer",
+                "default": 80
+              },
+              "max_doc_len": {
+                "type": "integer",
+                "default": 2000
+              },
+              "enable_ngram_fallback_index": {
+                "type": "boolean",
+                "default": true
+              },
+              "enable_like_fallback": {
+                "type": "boolean",
+                "default": false
+              },
+              "enable_relation_sparse_fallback": {
+                "type": "boolean",
+                "default": true
+              },
+              "relation_candidate_k": {
+                "type": "integer",
+                "default": 60
+              },
+              "relation_max_doc_len": {
+                "type": "integer",
+                "default": 512
+              },
+              "unload_on_disable": {
+                "type": "boolean",
+                "default": true
+              },
+              "shrink_memory_on_unload": {
+                "type": "boolean",
+                "default": true
+              }
+            },
+            "description": "稀疏检索配置（FTS5 + BM25）"
+          },
+          "fusion": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string",
+                "default": "weighted_rrf",
+                "enum": [
+                  "weighted_rrf",
+                  "alpha_legacy"
+                ]
+              },
+              "rrf_k": {
+                "type": "integer",
+                "default": 60
+              },
+              "vector_weight": {
+                "type": "number",
+                "default": 0.7
+              },
+              "bm25_weight": {
+                "type": "number",
+                "default": 0.3
+              },
+              "normalize_score": {
+                "type": "boolean",
+                "default": true
+              },
+              "normalize_method": {
+                "type": "string",
+                "default": "minmax",
+                "enum": [
+                  "minmax"
+                ]
+              }
+            },
+            "description": "检索融合配置"
           }
         },
         "threshold": {
