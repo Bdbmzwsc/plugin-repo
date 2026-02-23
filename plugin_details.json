@@ -4644,7 +4644,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "Galgame 搜索插件",
-      "version": "1.0.0",
+      "version": "1.0.2",
       "description": "帮助用户从 TouchGal 和 ShionLib 网站搜索 Galgame 游戏资源，支持 /gal 命令、自然语言查询，支持用llm扩展搜索关键词",
       "author": {
         "name": "霜印",
@@ -6018,7 +6018,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "A_Memorix",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "description": "轻量级知识库插件 - 基于双路检索与人物画像的独立记忆增强系统，优化低资源环境下的知识存储与检索",
       "author": {
         "name": "A_Dawn"
@@ -7367,7 +7367,7 @@
       "manifest_version": 1,
       "id": "Eric.llm_message_guard_plugin",
       "name": "LLM结构化消息守卫插件(试验性)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "试验新的LLM消息发送方式，观察结构化messages发送在实际聊天中的效果是否更好。",
       "author": {
         "name": "Eric-Terminal",
@@ -7377,8 +7377,8 @@
       "host_application": {
         "min_version": "0.12.0"
       },
-      "homepage_url": "https://github.com/MaiM-with-u/maibot",
-      "repository_url": "https://github.com/MaiM-with-u/maibot",
+      "homepage_url": "https://github.com/Eric-Terminal/llm_message_guard_plugin",
+      "repository_url": "https://github.com/Eric-Terminal/llm_message_guard_plugin",
       "keywords": [
         "llm",
         "security",
