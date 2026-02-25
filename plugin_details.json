@@ -5837,7 +5837,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "DG-Lab 郊狼控制插件 (DGLab Coyote Plugin)",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "通过 DG-Lab WebSocket 接口连接郊狼设备，并提供 LLM Action 调用控制强度与波形的能力",
       "author": {
         "name": "薄暝",
@@ -7216,8 +7216,8 @@
     "manifest": {
       "manifest_version": 1,
       "name": "桌游搜索插件 (bgg_search_plugin)",
-      "version": "0.0.3",
-      "description": "利用 DDGS 和 LLM 查询桌游英文名，然后从 BGG 网站获取游戏的相关基本信息",
+      "version": "0.0.5",
+      "description": "利用集石、 DDGS 和 LLM 查询桌游英文名，然后从 BGG 网站获取游戏的相关基本信息",
       "author": {
         "name": "山上的小丘",
         "url": "https://github.com/fsqhn"
