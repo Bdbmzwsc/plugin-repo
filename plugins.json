@@ -538,5 +538,9 @@
   {
     "id": "A_Dawn.A_model_router",
     "repositoryUrl": "https://github.com/A-Dawn/A_model_router"
+  },
+  {
+    "id": "bdbmzwsc.chat_summary",
+    "repositoryUrl": "https://github.com/Bdbmzwsc/maibot-chat-summary-plugin"
   }
 ]
