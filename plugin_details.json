@@ -5511,7 +5511,7 @@
           "三种自拍模式(standard/mirror/photo)",
           "SSE流式响应支持",
           "智能参考搜索(内置Bing搜图)",
-          "独���生图接口(generate_image_standalone)"
+          "独立生图接口(generate_image_standalone)"
         ]
       },
       "id": "selfie_painter"
