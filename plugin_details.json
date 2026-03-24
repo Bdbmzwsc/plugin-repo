@@ -3037,7 +3037,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "AnimeTrace 图片识别插件",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "description": "接收图片并调用 AnimeTrace 识别，返回文本结果到 QQ",
       "author": {
         "name": "薄暝&晴空",
@@ -3788,7 +3788,7 @@
           "⚡ 并发优化：超时任务主动取消，生成速度提升50%",
           "🎨 自定义Prompt：支持配置自定义提示词影响日程生成",
           "🤖 基于Bot人设智能生成每日日程（8-15个活动）",
-          "⏰ 定时自动生成（默��每天00:30）",
+          "⏰ 定时自动生成（默认每天00:30）",
           "💬 对话中自然提到当前活动（如\"这会儿正吃午饭呢\"）",
           "📊 支持文字和图片两种日程展示格式",
           "🔄 多轮生成机制，可选启用提升质量",
@@ -3831,7 +3831,7 @@
         },
         {
           "type": "command",
-          "description": "查看日程（文字格式）",
+          "description": "���看日程（文字格式）",
           "example": "/plan status"
         },
         {
@@ -4246,8 +4246,8 @@
     "manifest": {
       "manifest_version": 1,
       "name": "印象和好感度系统插件",
-      "version": "2.3.5",
-      "description": "为麦麦添加动态印象和好感度系统，LLM生成自然语言印象和动态好感度更新，使用独立的impression_affection_data.db数据库",
+      "version": "2.5.0",
+      "description": "为麦麦添加动态印象和好感度系统，LLM生成自然语言印象和动态好感度更新，支持5个难度等级和Nightmare模式",
       "author": {
         "name": "heitiehu-beep",
         "url": "https://github.com/heitiehu-beep"
@@ -4264,7 +4264,8 @@
       ],
       "categories": [
         "Entertainment & Interaction"
-      ]
+      ],
+      "id": "heitiehu-beep.impression_affection_plugin"
     }
   },
   {
@@ -5087,7 +5088,7 @@
     "manifest": {
       "manifest_version": 1,
       "name": "提示词注入防护插件",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "防御提示词注入攻击，支持规则检测和 LLM 检测",
       "author": {
         "name": "heitiehu-beep",
