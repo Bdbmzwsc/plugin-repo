@@ -514,7 +514,7 @@
             "endpoint": "ModelScope Gradio API",
             "authentication": "无需认证（公开Gradio接口）",
             "limitations": "依赖ModelScope服务可用性",
-            "features": "3秒声音克隆���17种方言支持、情感语速控制、自然语言指令"
+            "features": "3秒声音克隆、17种方言支持、情感语速控制、自然语言指令"
           }
         }
       },
@@ -2826,7 +2826,8 @@
       },
       "license": "MIT",
       "host_application": {
-        "min_version": "0.10.2"
+        "min_version": "0.10.2",
+        "max_version": "0.12.2"
       },
       "homepage_url": "https://github.com/TAIY2020/custom_commands_plugin",
       "repository_url": "https://github.com/TAIY2020/custom_commands_plugin",
@@ -3011,7 +3012,8 @@
       },
       "license": "AGPL-3.0",
       "host_application": {
-        "min_version": "0.11.0"
+        "min_version": "0.11.0",
+        "max_version": "0.12.2"
       },
       "homepage_url": "https://github.com/TAIY2020/group_muter_plugin",
       "repository_url": "https://github.com/TAIY2020/group_muter_plugin",
@@ -4975,43 +4977,6 @@
     }
   },
   {
-    "id": "MaiBot-Discord-Adapter",
-    "manifest": {
-      "manifest_version": 1,
-      "name": "Discord适配器",
-      "version": "1.0.0",
-      "description": "如题;注:使用该插件时建议重启,该插件有自动安装依赖可以直接在终端确认安装;细则行为可以查看readme",
-      "author": {
-        "name": "litroenade",
-        "url": "https://github.com/2829798842"
-      },
-      "license": "GPL-3.0",
-      "host_application": {
-        "min_version": "0.8.0"
-      },
-      "homepage_url": "https://github.com/2829798842/MaiBot-Discord-Adapter",
-      "repository_url": "https://github.com/2829798842/MaiBot-Discord-Adapter",
-      "keywords": [
-        "discord",
-        "adapter",
-        "platform",
-        "voice"
-      ],
-      "categories": [
-        "Platform Adapter"
-      ],
-      "default_locale": "zh-CN",
-      "plugin_info": {
-        "is_built_in": false,
-        "plugin_type": "platform_adapter",
-        "features": [
-          "Discord 各种消息收发"
-        ]
-      },
-      "id": "MaiBot-Discord-Adapter"
-    }
-  },
-  {
     "id": "WaterInk0101.proactive_private_chat",
     "manifest": {
       "manifest_version": 1,
@@ -6656,7 +6621,7 @@
           "refresh_interval_minutes": {
             "type": "integer",
             "default": 30,
-            "description": "人物画像定时刷��周期（分钟）"
+            "description": "人物画像定时刷���周期（分钟）"
           },
           "active_window_hours": {
             "type": "number",
