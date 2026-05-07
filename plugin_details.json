@@ -6688,7 +6688,7 @@
           "refresh_interval_minutes": {
             "type": "integer",
             "default": 30,
-            "description": "人物画像定时刷新周期（分钟）"
+            "description": "���物画像定时刷新周期（分钟）"
           },
           "active_window_hours": {
             "type": "number",
@@ -6735,7 +6735,7 @@
           "reinforce_buffer_max_size": {
             "type": "integer",
             "default": 1000,
-            "description": "强化缓冲区最大大小"
+            "description": "强化缓冲区��大大小"
           },
           "reinforce_cooldown_hours": {
             "type": "number",
