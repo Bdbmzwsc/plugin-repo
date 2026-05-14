@@ -6689,7 +6689,7 @@
           "active_window_hours": {
             "type": "number",
             "default": 72,
-            "description": "活跃人物窗口（小时）"
+            "description": "活跃人物窗口（小时���"
           },
           "max_refresh_per_cycle": {
             "type": "integer",
