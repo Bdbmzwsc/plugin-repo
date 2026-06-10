@@ -2559,7 +2559,7 @@
     "manifest": {
       "manifest_version": 2,
       "id": "namchengwuqiu.gemini_drawer",
-      "version": "1.9.11",
+      "version": "1.9.12",
       "name": "Gemini 绘图",
       "description": "使用 Google Gemini API或着其他第三方平台提供的绘图服务，根据图片和提示词生成新图片。（现已支持视频生成）",
       "author": {
@@ -5915,7 +5915,7 @@
                 "default": ""
               }
             },
-            "description": "Web 导入中心配置���队列、并发、大小限制、鉴权）"
+            "description": "Web 导入中心配置（队列、并发、大小限制、鉴权）"
           },
           "tuning": {
             "type": "object",
@@ -6207,7 +6207,7 @@
                 "default": 24
               }
             },
-            "description": "孤立数据管理配置 (软删除与自���清理)"
+            "description": "孤立数据管理配置 (软删除与自动清理)"
           }
         }
       },
