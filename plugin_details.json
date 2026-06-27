@@ -681,7 +681,7 @@
         "features": [
           "智能LLM判定生成时机",
           "高质量AI图片生成",
-          "���果缓存机制",
+          "结果缓存机制",
           "多种图片尺寸支持",
           "完整的错误处理"
         ]
@@ -2870,7 +2870,7 @@
     "id": "TAIY2020.group_muter_plugin",
     "manifest": {
       "manifest_version": 2,
-      "version": "2.4.0",
+      "version": "2.4.1",
       "name": "群聊静音插件 | GroupMuter Plugin",
       "description": "一个允许管理员通过聊天命令、或麦麦主动让指定群聊临时进入“静音状态”（闭嘴）的群组管理插件。",
       "author": {
@@ -6427,7 +6427,7 @@
     "id": "CharTyr.Mai-Soul-Engine",
     "manifest": {
       "manifest_version": 2,
-      "id": "char-tyr.mai-soul-engine",
+      "id": "chartyr.mai-soul-engine",
       "version": "2.0.0",
       "name": "Mai-Soul-Engine",
       "description": "通过聊天塑造 MaiBot 三观的人格底座 — 意识形态光谱演化 + 思维阁内化 + 回复注入",
