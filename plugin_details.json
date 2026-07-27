@@ -5943,7 +5943,7 @@
               "type": "string"
             },
             "default": [],
-            "description": "聊天流 ID ��表。支持格式: 1. 纯数字 (兼容模式); 2. 显式指定: 'group:12345'(群号), 'user:10001'(私聊), 'stream:hash'(流ID)"
+            "description": "聊天流 ID 列表。支持格式: 1. 纯数字 (兼容模式); 2. 显式指定: 'group:12345'(群号), 'user:10001'(私聊), 'stream:hash'(流ID)"
           }
         },
         "person_profile": {
@@ -6097,7 +6097,7 @@
     "manifest": {
       "manifest_version": 2,
       "id": "wentaoxian6-svg.rule-horror-plugin",
-      "version": "2.3.0",
+      "version": "2.4.0",
       "name": "规则怪谈插件",
       "description": "生成规则怪谈并进行互动游戏，支持 LLM 生成、提示、推理和多种结局判定。",
       "author": {
