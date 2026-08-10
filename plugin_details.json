@@ -1212,7 +1212,7 @@
         ],
         "features": [
           "多种音色支持（小新、妲己、酥心御姐等）",
-          "双模式触发（智能触���和手动触发）",
+          "双模式触发（智能触发和��动触发）",
           "音色别名映射，方便用户使用",
           "仅群聊可用，确保使用场景合适",
           "完善的错误处理和日志记录",
@@ -2648,7 +2648,7 @@
     "id": "custom_commands_plugin",
     "manifest": {
       "manifest_version": 2,
-      "version": "2.5.2",
+      "version": "2.6.0",
       "name": "自定义命令插件 | CustomCommands Plugin",
       "description": "一个允许你通过聊天命令动态添加、删除、列出和触发自定义回复的强大插件，支持群组数据隔离与自定义分组映射。",
       "author": {
@@ -2667,7 +2667,7 @@
         "max_version": "1.99.99"
       },
       "sdk": {
-        "min_version": "2.0.0",
+        "min_version": "2.6.0",
         "max_version": "2.99.99"
       },
       "dependencies": [],
@@ -2848,7 +2848,7 @@
     "id": "TAIY2020.group_muter_plugin",
     "manifest": {
       "manifest_version": 2,
-      "version": "2.4.2",
+      "version": "2.5.0",
       "name": "群聊静音插件 | GroupMuter Plugin",
       "description": "一个允许管理员通过聊天命令、或麦麦主动让指定群聊临时进入“静音状态”（闭嘴）的群组管理插件。",
       "author": {
@@ -2867,7 +2867,7 @@
         "max_version": "1.99.99"
       },
       "sdk": {
-        "min_version": "2.0.0",
+        "min_version": "2.6.0",
         "max_version": "2.99.99"
       },
       "dependencies": [],
@@ -5985,7 +5985,7 @@
           "top_k_evidence": {
             "type": "integer",
             "default": 12,
-            "description": "构建画像时的���据数量上限"
+            "description": "构建画像时的证据数量上限"
           }
         },
         "memory": {
