@@ -5989,7 +5989,7 @@
           "active_window_hours": {
             "type": "number",
             "default": 72,
-            "description": "活跃人物窗口（小时���"
+            "description": "活跃人物窗口（小时）"
           },
           "max_refresh_per_cycle": {
             "type": "integer",
@@ -5999,7 +5999,7 @@
           "top_k_evidence": {
             "type": "integer",
             "default": 12,
-            "description": "构建画像时的证据数量上限"
+            "description": "构建画像时的���据数量上限"
           }
         },
         "memory": {
