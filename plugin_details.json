@@ -5791,7 +5791,7 @@
                 "default": ""
               }
             },
-            "description": "Web 导入中心配置���队列、并发、大小限制、鉴权）"
+            "description": "Web 导入中心配置（队列、并发、大小限制、鉴权）"
           },
           "tuning": {
             "type": "object",
